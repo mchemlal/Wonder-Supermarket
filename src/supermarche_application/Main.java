@@ -14,7 +14,7 @@ public class Main {
 			public void run() {
 				
 				try {
-					Process.initialization();
+					Input.initialization();
 					}catch (Exception e) {
 					e.printStackTrace();
 					

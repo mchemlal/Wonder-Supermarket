@@ -4,24 +4,37 @@ import java.util.ArrayList;
 
 public class Stock {
 
+	//liste de produit
 	private static ArrayList<Product> listStock;
 	
+	//constructeur
 	public Stock() {
 		this.listStock= new ArrayList<>();
 		listStock.add(new Product("bread", 2.50, 20));
 		listStock.add(new Product("milk", 1.80, 30));
-		
+		listStock.add(new Product("apple", 1.10, 20));
 	}
 	
 	public ArrayList<Product> getStock(){
 		return listStock;
 	}
+	
+	//afficher tous les produits dans la console
 	public static void displayProducts() {
-		for(Product elements : listStock){
-			System.out.println("nom : " + elements.getName() + ",prix : "+ elements.getPrice()+ ", Quantite : "+ elements.getQuantity() );
+		for(int i = 0; i < listStock.size(); i++){
+			System.out.println(i+") nom : " + listStock.get(i).getName() + ",prix : "+ listStock.get(i).getPrice()+ 
+					", Quantite : "+ listStock.get(i).getQuantity() + "\n");
+		}
        
     }
 	
-	
-}
+	//ajouter un produit
+	 public void addProduct(String name,double price, int quantity) {
+				
+        Product addProduct = new Product(name, price, quantity);
+             listStock.add(addProduct);
+       }
+	 
+	 
+	 
 }
