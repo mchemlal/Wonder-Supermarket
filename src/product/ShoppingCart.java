@@ -28,4 +28,6 @@ public class ShoppingCart {
 		System.out.println("produit ajouté au stock");
 	}
 
+	
+	
 }
