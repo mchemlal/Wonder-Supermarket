@@ -13,8 +13,10 @@ public class Stock {
 		
 	}
 	
+	public ArrayList<Product> getStock(){
+		return listStock;
+	}
 	public static void displayProducts() {
-		Stock stock =new Stock();
 		for(Product elements : listStock){
 			System.out.println("nom : " + elements.getName() + ",prix : "+ elements.getPrice()+ ", Quantite : "+ elements.getQuantity() );
        
