@@ -10,9 +10,9 @@ public class Stock {
 	//constructeur
 	public Stock() {
 		this.listStock= new ArrayList<>();
-		listStock.add(new Product("bread", 2.50, 20));
-		listStock.add(new Product("milk", 1.80, 30));
-		listStock.add(new Product("apple", 1.10, 20));
+		listStock.add(new Product(1,"bread", 2.50, 20));
+		listStock.add(new Product(2,"milk", 1.80, 30));
+		listStock.add(new Product(3,"apple", 1.10, 20));
 	}
 	
 	public ArrayList<Product> getStock(){
@@ -29,12 +29,12 @@ public class Stock {
     }
 	
 	//ajouter un produit
-	 public void addProduct(String name,double price, int quantity) {
+	 public void addProduct(int Id, String name,double price, int quantity) {
 				
-        Product addProduct = new Product(name, price, quantity);
+        Product addProduct = new Product(Id, name, price, quantity);
              listStock.add(addProduct);
        }
 	 
-	 
+
 	 
 }

@@ -2,14 +2,24 @@ package product;
 
 public class Product {
 
+	private int Id;
 	private String name;
 	private double price;
 	private int quantity;
 	
-	public Product(String name, double price, int quantity) {
+	public Product(int Id, String name, double price, int quantity) {
+		this.Id = Id;
 		this.name = name;
 		this.price = price;
 		this.quantity = quantity;
+	}
+
+	public int getId() {
+		return Id;
+	}
+
+	public void setId(int id) {
+		Id = id;
 	}
 
 	public String getName() {

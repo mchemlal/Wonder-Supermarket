@@ -15,19 +15,41 @@ public class ShoppingCart {
 	public ArrayList<Product> getCart() {
 	        return listCart;
 	}
+
 	
-	public static void addToCart() {
-		System.out.println("c'est ajoute au panier");
+	public void displayCart() {
+		for(Product elements : listCart){
+			System.out.println("product : " + elements.getName() + " price: " + elements.getPrice() + "quantity: " + elements.getQuantity());
+			}
 	}
-	
-	public static void displayCart() {
-		System.out.println("Je suis le panier");
+
+	public double getCartTotalAmount() {
+		double totalAmount = 0;
+		for (int i = 0; i < listCart.size(); i++) {
+			totalAmount = totalAmount + (listCart.get(i).getQuantity() * listCart.get(i).getPrice());
+			return totalAmount;
+		}
 	}
-	
+
+
 	public static void addToStock() {
 		System.out.println("produit ajouté au stock");
 	}
 
-	
+	public void addToCart(int Id, String name, double price, int quantity){
+		Product addProduct = new Product(Id, name, price, quantity);
+		listCart.add(addProduct);
+	}
+
+	public void choseProductById(int scan){
+		for(Product elements : listCart){
+			if(elements.getId() == scan){
+				System.out.println("this product " + elements.getName() + "has been added to cart");
+				addToCart(elements.getId(), elements.getName(), elements.getPrice(), elements.getQuantity());
+			}
+
+		}
+
+	}
 	
 }
