@@ -6,7 +6,7 @@ public class MainMenu {
 	public static void logo() {
 		System.out.println(" _______________________________");
 		System.out.println("|                               |");
-		System.out.println("|  BIENVENUE au WONDER MARKET   |");
+		System.out.println("|  les PD au WONDER MARKET   |");
 		System.out.println("|_______________________________|");
 	}
 	
