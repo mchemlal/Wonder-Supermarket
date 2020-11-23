@@ -101,7 +101,10 @@ public class Input {
 		if(choiceCustomer == 1) {
 			listStock.displayProducts();
 		}else if (choiceCustomer == 2) {
-			ShoppingCart.addToStock();
+			listStock.displayProducts();
+			System.out.println("Add to your cart your chosen products by tipping in the matching Id ");
+			int addToCart = scanCustomer.nextInt();
+			//ShoppingCart.addToStock();
 		}else if (choiceCustomer == 3) {
 			System.out.println("Vous retournez au menu precedent");
 			displayMainMenu();
@@ -122,6 +125,7 @@ public class Input {
 		String addNameProduct = "";
 		double addPriceProduct = 0.00;
 		int addQuantityProduct = 0;
+		int addId = 4;
 		
 		
 		System.out.println("insert a product name : ");
@@ -134,7 +138,8 @@ public class Input {
 		addQuantityProduct = scanDatas.nextInt();
 		
 
-		listStock.addProduct(addNameProduct, addPriceProduct, addQuantityProduct);
+		listStock.addProduct(addId, addNameProduct, addPriceProduct, addQuantityProduct);
+		addId++;
 		isInProgressAdminDatas = true;
 		}
 		System.out.println("Product addes successfully!\n ");
