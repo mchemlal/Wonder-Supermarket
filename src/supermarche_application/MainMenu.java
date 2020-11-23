@@ -5,17 +5,14 @@ import java.util.Scanner;
 
 public class MainMenu {
 
-	
-<<<<<<<<< Temporary merge branch 1
+
 	public static void logo() {
 		System.out.println(" _______________________________");
 		System.out.println("|                               |");
 		System.out.println("|  WELCOME TO WONDER MARKET !   |");
 		System.out.println("|_______________________________|");
 	}
-=========
-	
->>>>>>>>> Temporary merge branch 2
+
 	
 	public static void displayMainMenu() {
 		
