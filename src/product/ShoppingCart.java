@@ -27,13 +27,13 @@ public class ShoppingCart {
 		double totalAmount = 0;
 		for (int i = 0; i < listCart.size(); i++) {
 			totalAmount = totalAmount + (listCart.get(i).getQuantity() * listCart.get(i).getPrice());
-			return totalAmount;
 		}
+		return totalAmount;
 	}
 
 
 	public static void addToStock() {
-		System.out.println("produit ajouté au stock");
+		System.out.println("produit ajouté au stock \n");
 	}
 
 	public void addToCart(int Id, String name, double price, int quantity){
@@ -44,10 +44,9 @@ public class ShoppingCart {
 	public void choseProductById(int scan){
 		for(Product elements : listCart){
 			if(elements.getId() == scan){
-				System.out.println("this product " + elements.getName() + "has been added to cart");
+				System.out.println("this product " + elements.getName() + "has been added to cart \n");
 				addToCart(elements.getId(), elements.getName(), elements.getPrice(), elements.getQuantity());
 			}
-
 		}
 
 	}

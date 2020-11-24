@@ -14,7 +14,8 @@ public class Input {
 		displayMainMenu();		
 		
 	}
-	static Stock listStock = new Stock(); 
+	static Stock listStock = new Stock();
+	static ShoppingCart listCart = new ShoppingCart();
 	
 	public static void displayMainMenu() {
 		
@@ -104,7 +105,7 @@ public class Input {
 			listStock.displayProducts();
 			System.out.println("Add to your cart your chosen products by tipping in the matching Id ");
 			int addToCart = scanCustomer.nextInt();
-			//ShoppingCart.addToStock();
+			listCart.choseProductById(addToCart);
 		}else if (choiceCustomer == 3) {
 			System.out.println("Vous retournez au menu precedent");
 			displayMainMenu();

@@ -22,7 +22,7 @@ public class Stock {
 	//afficher tous les produits dans la console
 	public static void displayProducts() {
 		for(int i = 0; i < listStock.size(); i++){
-			System.out.println(i+") nom : " + listStock.get(i).getName() + ",prix : "+ listStock.get(i).getPrice()+ 
+			System.out.println(listStock.get(i).getId()+") name : " + listStock.get(i).getName() + ",prix : "+ listStock.get(i).getPrice()+
 					", Quantite : "+ listStock.get(i).getQuantity() + "\n");
 		}
        
