@@ -96,6 +96,8 @@ public class Input {
 				+ "2 - add to cart\n"
 				+ "3 - logout\n");
 		
+		listShoppinCart.displayCart();
+		
 		Scanner scanCustomer = new Scanner(System.in);
 		int choiceCustomer = scanCustomer.nextInt();
 		
@@ -106,7 +108,7 @@ public class Input {
 			
 			listStock.displayProducts();
 			addInputToCart();
-			listShoppinCart.displayCart();
+			//listShoppinCart.displayCart();
 			
 		}else if (choiceCustomer == 3) {
 			System.out.println("Vous retournez au menu precedent");
@@ -124,22 +126,41 @@ public class Input {
 		
 		int chooseId = 0;
 		int chooseQuantity = 0;
-		
-		try {
+		boolean isBuying = false;
+		while(!isBuying) {
 		System.out.println("Add to your cart your chosen products by tipping in the matching Id ");
 		Scanner scanInputId = new Scanner(System.in);
 		chooseId = scanInputId.nextInt();
+		try {
 		System.out.println("Choose a quantity : ");
 		chooseQuantity = scanInputId.nextInt();
 		
 		}catch(InputMismatchException e){
-			System.out.println("bad key ");
+			System.out.println("bad key man");
 		}
+		
 		listStock.choseProductById(chooseId, chooseQuantity);
+		listShoppinCart.displayCart();
 		
 		
 		
+			System.out.println("What do you want to do?\n b - Buy your shopping cart \n r - return");
+			Scanner scanBuy = new Scanner(System.in);
+			String BuyOrReturn = scanBuy.nextLine();
+			
+		if(BuyOrReturn.equals("b")) {
+			System.out.println("Thank you for buying, you will receive a email soon ");
+			listShoppinCart.clearShippingCart();
+			displayCustomerMenu();	
+		}else if(BuyOrReturn.equals("r")){
+			displayCustomerMenu();	
+		}else {
+			System.out.println("bad key mec!");
 		}
+		}
+	}
+
+	
 	
 	
 	public static void addProductDatas() {

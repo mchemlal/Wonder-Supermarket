@@ -36,7 +36,7 @@ public class Stock {
 	 public void choseProductById(int scanId, int scanQuantity){
 			for(Product elements : listStock){
 				if(scanId == elements.getId()){
-					System.out.println("this product " + elements.getName() + " has been added to cart\n");
+					System.out.println("the product " + elements.getName() + " has been added to cart\n");
 					ShoppingCart.addToCart(elements.getId(), elements.getName(), elements.getPrice(), scanQuantity);
 					int updateQuantite = elements.getQuantity() - scanQuantity;
 					elements.setQuantity(updateQuantite);
