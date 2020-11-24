@@ -22,7 +22,7 @@ public class Stock {
 	public static void displayProducts() {
 		for(int i = 0; i < listStock.size(); i++){
 			System.out.println(listStock.get(i).getId()+") nom : " + listStock.get(i).getName() + ",prix : "+ listStock.get(i).getPrice()+ 
-					", Quantite : "+ listStock.get(i).getQuantity() + "\n");
+					", Quantity : "+ listStock.get(i).getQuantity() + "\n");
 		}
        
     }
