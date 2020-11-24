@@ -28,14 +28,15 @@ public class ShoppingCart {
 
 	public void displayCart() {
 		int count = 0;
+		System.out.println(" ________________________");
+		System.out.println("|   Your Shopping Cart   |");
+		System.out.println(" ------------------------");
 		for(Product elements : listCart){
 			if(listCart == null ) {
 				System.out.println("Your cart is empty\n");
 			}else {
 			
-			System.out.println(" ________________________");
-			System.out.println("|   Your Shopping Cart   |");
-			System.out.println(" ------------------------");
+
 			System.out.println("product : " + elements.getName() + " price: " + elements.getPrice() + "quantity: " + elements.getQuantity());
 			count++;
 			}

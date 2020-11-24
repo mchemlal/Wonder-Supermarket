@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import product.ShoppingCart;
 import product.Stock;
+import users.Users;
 
 public class Input {
 	
@@ -16,12 +17,14 @@ public class Input {
 	}
 	static Stock listStock = new Stock(); 
 	static ShoppingCart listShoppinCart = new ShoppingCart();
+	static Users listUsers = new Users();
+
+	
+	
 	
 	public static void displayMainMenu() {
 		
 		boolean isInProgress = false;
-		while(!isInProgress) {
-			try {
 		System.out.println(" _______________________________");
 		System.out.println("|                               |");
 		System.out.println("|  WELCOME TO WONDER MARKET     |");
@@ -30,17 +33,33 @@ public class Input {
 		System.out.println("What do you want to do?\n "
 				+ "1 - Log in as client\n "
 				+ "2 - Log in as an administrator\n"
-				+ " 3 - Exit\n");
+				+ "3 - Create your account\n"
+				+ " 4 - Exit\n");
+		
+		while(!isInProgress) {
+			try {
 		Scanner scanUser = new Scanner(System.in);
 		int choiceUser = scanUser.nextInt();
+		boolean adminData = false;
 			
-		if(choiceUser == 1) {
-			displayCustomerMenu();
-		}
+			Scanner scanLog = new Scanner(System.in);
+			System.out.println("Enter you login");
+			String UserNameLog = scanLog.nextLine();
+			
+			
+			System.out.println("Enter you password");
+			String UserPassLog = scanLog.nextLine();
+		if(choiceUser == 1 ){		
+			listUsers.getUuserData(UserNameLog, UserPassLog, adminData);
+			
+			}
 		else if(choiceUser == 2) {
-			displayAdminMenu();
+				displayAdminMenu();
+			
 		}
-		else if(choiceUser == 3) {
+		
+	
+		else if(choiceUser == 4) {
 			System.out.println("Au revoir");
 			System.exit(0);
 		}else {
