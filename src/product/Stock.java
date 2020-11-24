@@ -6,7 +6,6 @@ public class Stock {
 
 	//liste de produit
 	private static ArrayList<Product> listStock;
-	
 	//constructeur
 	public Stock() {
 		this.listStock= new ArrayList<>();
@@ -22,19 +21,32 @@ public class Stock {
 	//afficher tous les produits dans la console
 	public static void displayProducts() {
 		for(int i = 0; i < listStock.size(); i++){
-			System.out.println(i+") nom : " + listStock.get(i).getName() + ",prix : "+ listStock.get(i).getPrice()+ 
+			System.out.println(listStock.get(i).getId()+") nom : " + listStock.get(i).getName() + ",prix : "+ listStock.get(i).getPrice()+ 
 					", Quantite : "+ listStock.get(i).getQuantity() + "\n");
 		}
        
     }
 	
 	//ajouter un produit
-	 public void addProduct(int Id, String name,double price, int quantity) {
-				
+	 public void addProduct(int Id, String name,double price, int quantity) {		
         Product addProduct = new Product(Id, name, price, quantity);
              listStock.add(addProduct);
        }
 	 
+	 public void choseProductById(int scanId, int scanQuantity){
+			for(Product elements : listStock){
+				if(scanId == elements.getId()){
+					System.out.println("this product " + elements.getName() + " has been added to cart\n");
+					ShoppingCart.addToCart(elements.getId(), elements.getName(), elements.getPrice(), scanQuantity);
+					int updateQuantite = elements.getQuantity() - scanQuantity;
+					elements.setQuantity(updateQuantite);
+				}
 
+			}
+
+		}
+	 public void setQuantity() {
+		
+	 }
 	 
 }

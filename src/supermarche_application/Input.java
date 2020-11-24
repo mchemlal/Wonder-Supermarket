@@ -15,6 +15,7 @@ public class Input {
 		
 	}
 	static Stock listStock = new Stock(); 
+	static ShoppingCart listShoppinCart = new ShoppingCart();
 	
 	public static void displayMainMenu() {
 		
@@ -100,11 +101,13 @@ public class Input {
 		
 		if(choiceCustomer == 1) {
 			listStock.displayProducts();
+			
 		}else if (choiceCustomer == 2) {
+			
 			listStock.displayProducts();
-			System.out.println("Add to your cart your chosen products by tipping in the matching Id ");
-			int addToCart = scanCustomer.nextInt();
-			//ShoppingCart.addToStock();
+			addInputToCart();
+			listShoppinCart.displayCart();
+			
 		}else if (choiceCustomer == 3) {
 			System.out.println("Vous retournez au menu precedent");
 			displayMainMenu();
@@ -116,6 +119,27 @@ public class Input {
 		}
 		}
 	}
+	
+	public static void addInputToCart() {
+		
+		int chooseId = 0;
+		int chooseQuantity = 0;
+		
+		try {
+		System.out.println("Add to your cart your chosen products by tipping in the matching Id ");
+		Scanner scanInputId = new Scanner(System.in);
+		chooseId = scanInputId.nextInt();
+		System.out.println("Choose a quantity : ");
+		chooseQuantity = scanInputId.nextInt();
+		
+		}catch(InputMismatchException e){
+			System.out.println("bad key ");
+		}
+		listStock.choseProductById(chooseId, chooseQuantity);
+		
+		
+		
+		}
 	
 	
 	public static void addProductDatas() {
@@ -143,6 +167,8 @@ public class Input {
 		isInProgressAdminDatas = true;
 		}
 		System.out.println("Product addes successfully!\n ");
+		
+	
 	}
 	
 }
