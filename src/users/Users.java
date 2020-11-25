@@ -11,22 +11,22 @@ import supermarche_application.Input;
 public class Users {
 
 	
-	public static ArrayList<Customers> customers = new ArrayList<>();
-	public static ArrayList<Admin> admin = new ArrayList<>();
+	public static ArrayList<Customers> customers;
+	public static ArrayList<Admin> admin;
 	
 	public Users() {
-		
-		
+		this.customers = new ArrayList<>();
+		this.admin = new ArrayList<>();
 	}
 
 	
-	public static void getUserData(String scanName, String scanPass) {
+	public static void getUserData(String scanName, String scanPassword) {
 		customers.add(new Customers("customer", "customer"));
 		for(int i = 0; i < customers.size(); i ++ ) {
 			Customers user = customers.get(i);
-			if(user.getName().equals(scanName) && user.getPassword().equals(scanPass) ) 
+			if(user.getName().equals(scanName) && user.getPassword().equals(scanPassword)) 
 			{
-				System.out.println("Welcome to wonder market " + user.getName() + "\n");
+				System.out.println("Welcome to wonder market, " + user.getName() + "\n");
 				//menu principal client
 				Input.displayCustomerMenu();
 			}else {
@@ -55,7 +55,7 @@ public class Users {
 	}
 	
 	public static void createAccount(String scanName, String scanPassword) {
-		 System.out.println("Account created, welcome to wonder market, now enjoy our offers\n");
+		 System.out.println("Account created\n");
 		customers.add(new Customers(scanName, scanPassword));
 		 System.out.println(customers);
 		// addGuest(scanName, scanPassword) ;

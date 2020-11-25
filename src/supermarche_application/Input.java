@@ -3,6 +3,7 @@ package supermarche_application;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import product.Order;
 import product.ShoppingCart;
 import product.Stock;
 import users.Customers;
@@ -10,9 +11,10 @@ import users.Users;
 
 public class Input {
 	
-	public  static Stock listStock = new Stock(); 
+	public static Stock listStock = new Stock(); 
 	public static ShoppingCart listShoppinCart = new ShoppingCart();
 	public static Users users = new Users();
+	public static Order Allorders = new Order();
 	
 	 
 	 public static void displayMainMenu() {
@@ -35,16 +37,15 @@ public class Input {
 			int choiceUser = scanUser.nextInt();
 				
 				Scanner scanLog = new Scanner(System.in);
-				System.out.println("Enter you login");
+				System.out.println("Enter your login");
 				String UserNameLog = scanLog.nextLine();
 				
 				
-				System.out.println("Enter you password");
+				System.out.println("Enter your password");
 				String UserPassLog = scanLog.nextLine();
 				
 				if(choiceUser == 1 ){	
-					System.out.println(UserNameLog);
-					System.out.println(UserPassLog);
+					
 					users.getUserData(UserNameLog, UserPassLog);
 					System.out.println(Users.customers);
 					
@@ -58,8 +59,7 @@ public class Input {
 					users.createAccount(UserNameLog, UserPassLog);
 					break;
 				}
-			
-		
+
 			else if(choiceUser == 4) {
 				System.out.println("Au revoir");
 				System.exit(0);
@@ -96,7 +96,7 @@ public class Input {
 			
 			
 		}else if (choiceAdmin == 3) {
-			System.out.println("Vous retournez au menu precedent");
+			System.out.println("Back to the main menu");
 			displayMainMenu();
 		}else {
 			System.out.println("Veuillez entrer un chiffre entre 1 et 3");
@@ -131,7 +131,7 @@ public class Input {
 			//listShoppinCart.displayCart();
 			
 		}else if (choiceCustomer == 3) {
-			System.out.println("Vous retournez au menu precedent");
+			System.out.println("Back to the main menu");
 			displayMainMenu();
 		}else {
 			System.out.println("Veuillez entrer un chiffre entre 1 et 3");
@@ -169,8 +169,20 @@ public class Input {
 			String BuyOrReturn = scanBuy.nextLine();
 			
 		if(BuyOrReturn.equals("b")) {
+			int idOrder = 1;
 			System.out.println("Thank you for buying, you will receive a email soon ");
+			//on set l'id
+			Allorders.generateId(idOrder);
+			
+			//methode qui recupere la liste achetée
+			Allorders.createOrder(listShoppinCart);
+			
+			//methode qui reset le panier
 			listShoppinCart.clearShippingCart();
+			// on genere un id pour cette commande
+			idOrder+= 1;
+			
+
 			displayCustomerMenu();	
 		}else if(BuyOrReturn.equals("r")){
 			displayCustomerMenu();	

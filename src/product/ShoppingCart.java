@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ShoppingCart {
 
-	private static ArrayList<Product> listCart = null;
+	public static ArrayList<Product> listCart = null;
 	
 	//constructeur
 	public ShoppingCart() {
@@ -16,6 +16,14 @@ public class ShoppingCart {
 	
 	public ArrayList<Product> getCart() {
 	        return listCart;
+	}
+	
+	public static ArrayList<Product> getListCart() {
+		return listCart;
+	}
+
+	public static void setListCart(ArrayList<Product> listCart) {
+		ShoppingCart.listCart = listCart;
 	}
 
 	public double getCartTotalAmount() {
@@ -36,7 +44,6 @@ public class ShoppingCart {
 				System.out.println("Your cart is empty\n");
 			}else {
 			
-
 			System.out.println("product : " + elements.getName() + " price: " + elements.getPrice() + "quantity: " + elements.getQuantity());
 			count++;
 			}
@@ -50,9 +57,7 @@ public class ShoppingCart {
 	}
 
 	public void clearShippingCart() {
-		//for(Product elements : listCart){
 			listCart.removeAll(listCart);
-		
 	}
 	
 }
