@@ -5,75 +5,76 @@ import java.util.Scanner;
 
 import product.ShoppingCart;
 import product.Stock;
+import users.Customers;
 import users.Users;
 
 public class Input {
 	
+	public  static Stock listStock = new Stock(); 
+	public static ShoppingCart listShoppinCart = new ShoppingCart();
+	public static Users users = new Users();
 	
-	public static void initialization() {
-		
-		displayMainMenu();		
-		
-	}
-	static Stock listStock = new Stock(); 
-	static ShoppingCart listShoppinCart = new ShoppingCart();
-	static Users listUsers = new Users();
-
-	
-	
-	
-	public static void displayMainMenu() {
-		
-		boolean isInProgress = false;
-		System.out.println(" _______________________________");
-		System.out.println("|                               |");
-		System.out.println("|  WELCOME TO WONDER MARKET     |");
-		System.out.println("|_______________________________|\n");
-		
-		System.out.println("What do you want to do?\n "
-				+ "1 - Log in as client\n "
-				+ "2 - Log in as an administrator\n"
-				+ "3 - Create your account\n"
-				+ " 4 - Exit\n");
-		
-		while(!isInProgress) {
-			try {
-		Scanner scanUser = new Scanner(System.in);
-		int choiceUser = scanUser.nextInt();
-		boolean adminData = false;
+	 
+	 public static void displayMainMenu() {
 			
-			Scanner scanLog = new Scanner(System.in);
-			System.out.println("Enter you login");
-			String UserNameLog = scanLog.nextLine();
+			boolean isInProgress = false;
+			System.out.println(" _______________________________");
+			System.out.println("|                               |");
+			System.out.println("|  WELCOME TO WONDER MARKET     |");
+			System.out.println("|_______________________________|\n");
 			
+			System.out.println("What do you want to do?\n "
+					+ "1 - Log in as client\n "
+					+ "2 - Log in as an administrator\n"
+					+ " 3 - Create your account\n"
+					+ " 4 - Exit\n");
 			
-			System.out.println("Enter you password");
-			String UserPassLog = scanLog.nextLine();
-		if(choiceUser == 1 ){		
-			listUsers.getUuserData(UserNameLog, UserPassLog, adminData);
+			while(!isInProgress) {
+				try {
+			Scanner scanUser = new Scanner(System.in);
+			int choiceUser = scanUser.nextInt();
+				
+				Scanner scanLog = new Scanner(System.in);
+				System.out.println("Enter you login");
+				String UserNameLog = scanLog.nextLine();
+				
+				
+				System.out.println("Enter you password");
+				String UserPassLog = scanLog.nextLine();
+				
+				if(choiceUser == 1 ){	
+					System.out.println(UserNameLog);
+					System.out.println(UserPassLog);
+					users.getUserData(UserNameLog, UserPassLog);
+					System.out.println(Users.customers);
+					
+					}
+				else if(choiceUser == 2) {
+					users.getUserDataAdmin(UserNameLog, UserPassLog) ;
+					break;
+				
+					
+				}else if(choiceUser == 3) {
+					users.createAccount(UserNameLog, UserPassLog);
+					break;
+				}
 			
+		
+			else if(choiceUser == 4) {
+				System.out.println("Au revoir");
+				System.exit(0);
+			}else {
+				System.out.println("Veuillez entrer un chiffre entre 1 et 3");
 			}
-		else if(choiceUser == 2) {
-				displayAdminMenu();
 			
+			
+			}catch(InputMismatchException e){
+				System.out.println("veuillez entrez un chiffre entre 1 et 3");
+			}
+			}
 		}
-		
-	
-		else if(choiceUser == 4) {
-			System.out.println("Au revoir");
-			System.exit(0);
-		}else {
-			System.out.println("Veuillez entrer un chiffre entre 1 et 3");
-		}
-		
-		
-		}catch(InputMismatchException e){
-			System.out.println("veuillez entrez un chiffre entre 1 et 3");
-		}
-		}
-	}
-	
 
+	 
 	public static void displayAdminMenu() {
     boolean isInProgressAdminMenu = false;
 	while(!isInProgressAdminMenu) {
@@ -155,7 +156,7 @@ public class Input {
 		chooseQuantity = scanInputId.nextInt();
 		
 		}catch(InputMismatchException e){
-			System.out.println("bad key man");
+			System.out.println("wrong key");
 		}
 		
 		listStock.choseProductById(chooseId, chooseQuantity);
@@ -174,13 +175,11 @@ public class Input {
 		}else if(BuyOrReturn.equals("r")){
 			displayCustomerMenu();	
 		}else {
-			System.out.println("bad key mec!");
+			System.out.println("wrong key!");
 		}
 		}
 	}
 
-	
-	
 	
 	public static void addProductDatas() {
 		boolean isInProgressAdminDatas = false;

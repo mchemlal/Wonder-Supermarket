@@ -1,90 +1,70 @@
 package users;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
+import product.Product;
 import supermarche_application.Input;
 
 public class Users {
 
-	private String name;
-	private String password;
-	private boolean isAdmin = false;
-	private static ArrayList<Users> usersLogin;
 	
-	public Users(String name, String password, boolean isAdmin) {
-		this.name = name;
-		this.password = password;
-		this.isAdmin = isAdmin;	
-	}
-	public Users(){
-		usersLogin = new ArrayList<>();
-		usersLogin.add(new Users("JeanPierre", "jp1234", false));	
-		usersLogin.add(new Users("peter", "jpjiu178", false));	
-		usersLogin.add(new Users("Pierre-Henri", "kjotwv6574", true));	
-	}
- 
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	public static ArrayList<Customers> customers = new ArrayList<>();
+	public static ArrayList<Admin> admin = new ArrayList<>();
 	
-	public boolean isAdmin() {
-		return isAdmin;
+	public Users() {
+		
+		
 	}
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
+
 	
-	public static void getUuserData(String scanName, String scanPassword, boolean admin) {
+	public static void getUserData(String scanName, String scanPass) {
+		customers.add(new Customers("customer", "customer"));
+		for(int i = 0; i < customers.size(); i ++ ) {
+			Customers user = customers.get(i);
+			if(user.getName().equals(scanName) && user.getPassword().equals(scanPass) ) 
+			{
+				System.out.println("Welcome to wonder market " + user.getName() + "\n");
+				//menu principal client
+				Input.displayCustomerMenu();
+			}else {
+				System.out.println("Please create an account");
+				System.out.println(user);
+				Input.displayMainMenu();
+			}
+		}	
+	}	
+	
+	public static void getUserDataAdmin(String scanName, String scanPassword) {
 		//je parcours l arraylist
-		for(Users elements : usersLogin) {
+		admin.add(new Admin("admin", "admin123"));
+		for(Admin elements : admin) {
 			//si les noms + les pass sont == au scanners d'un utilisateur
 			if(elements.getName().equals(scanName) && elements.getPassword().equals(scanPassword)) {
-				if(elements.isAdmin() == true) {
-					System.out.println("You are not a client please log as an administator\n");
-					Input.displayMainMenu();
+				if(elements.getPassword().equals("admin123")) {
+					System.out.println("Welcome to wonder market " + elements.getName() + "\n");
+					Input.displayAdminMenu();
 				}else {
-					System.out.println("Welcome back " + elements.getName() + "\n");
-					//menu principal client
-					Input.displayCustomerMenu();
+					System.out.println("You don't have the rights to log as an administrator\n");
+					Input.displayMainMenu();
 				}
-			}else {
-				//ajout d'un users nouveau en BDD
-				
-				System.out.println("You are not in our database, please create an account");
-				Input.displayMainMenu();
 			}
 		}
 	}
 	
 	public static void createAccount(String scanName, String scanPassword) {
-		
-		for(Users elements : usersLogin) {
-			if(elements.getName().equals(scanName) && elements.getPassword().equals(scanPassword)) {
-				System.out.println("You already exists in our database, please log\n");
-				Input.displayMainMenu();
-			}else {
-				System.out.println("Account created, please log again as a client\n");
-				Users user = new Users(scanName, scanPassword, false);
-				addGuest(scanName, scanPassword, false) ;
-				Input.displayMainMenu();
-			}
-		}
-	}
-	
-	
+		 System.out.println("Account created, welcome to wonder market, now enjoy our offers\n");
+		customers.add(new Customers(scanName, scanPassword));
+		 System.out.println(customers);
+		// addGuest(scanName, scanPassword) ;
+		 //Input.displayMainMenu();
+
+}
+
 	//ajouter un produit
-	 public static void addGuest(String name, String password, boolean admin) {		
-		 Users addUsers = new Users(name, password, admin);
-        usersLogin.add(addUsers);
+	 public  void addGuest(String scanName, String scanPassword) {		
+		 
 	 }
-	
 }
