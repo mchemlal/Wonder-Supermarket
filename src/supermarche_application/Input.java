@@ -169,6 +169,15 @@ public class Input {
 			int idOrder = 1;
 			System.out.println("Thank you for buying, you will receive a email soon ");
 
+			String GuestName = Allorders.orderGuestName(users);
+			String productName = Allorders.getnameProduct(listShoppinCart);
+			int orderQuantity = Allorders.getProductQuantity(listShoppinCart);
+			double amountOrder =  Allorders.getTotalAmount(listShoppinCart);
+			
+			Allorders.addAnOrder(idOrder, GuestName, productName, orderQuantity,amountOrder );
+			Allorders.displayGuestOrder();
+			
+			
 			//methode qui reset le panier
 			listShoppinCart.clearShippingCart();
 			// on genere un id pour cette commande

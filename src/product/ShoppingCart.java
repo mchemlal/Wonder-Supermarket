@@ -5,7 +5,6 @@ import java.util.List;
 
 
 public class ShoppingCart {
-
 	public static ArrayList<Product> listCart = null;
 	
 	//constructeur
