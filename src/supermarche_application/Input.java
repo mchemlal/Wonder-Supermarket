@@ -44,7 +44,6 @@ public class Input {
 				System.out.println("Enter your password");
 				String UserPassLog = scanLog.nextLine();
 				
-				
 				if(choiceUser == 1 ){	
 					
 					users.getUserData(UserNameLog, UserPassLog);
