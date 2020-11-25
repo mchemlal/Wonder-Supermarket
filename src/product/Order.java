@@ -1,51 +1,94 @@
 package product;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import users.Customers;
+import users.Users;
 
 public class Order {
 
 	public static int idOrder;
-	public static HashMap<Integer, Product> order;
+	public static ArrayList<Order> order;
+	private String name;
+	private String nameProduct;
+	private int quantity;
+	private double amount;
 	
 	//constructeur
 	public Order() {
-		this.order = new HashMap<Integer, Product>() ;
+		this.order = new ArrayList<>();
+		order.add(new Order());
 	}
 	
+	public Order(int idOrder, String name, String nameProduct, int quantity, double amount) {
+	}
 	
 	//accesseurs
-	public int getIdOrder() {
+	public static void setId(int idGenerated) {
+		idOrder = idGenerated;
+		System.out.println("id of order :" + idOrder +"\n");
+	}
+	public int getId() {
 		return idOrder;
 	}
 
-
-	public HashMap<Integer, Product> getOrder() {
-		return order;
+	//METHODES TEST RECUP INFOS PANIER - commentaires à supprimer apres
+	public String getName(Users utilisateur) {
+		String getNameGuest = null;
+		for(Customers CustomerName : utilisateur.customers){
+			 getNameGuest = CustomerName.getName();
+		}return getNameGuest;
 	}
-
-	public void setOrder(HashMap<Integer, Product> order) {
-		this.order = order;
-	}
-
-
-	//cree une entre de tableau
-	public static  void createOrder(ShoppingCart shop){
-		for(Product itemCart : shop.listCart) {
-			order.put(idOrder, itemCart);
-			
-		}
-	}
-	//on  boucle sur le hashmap commande client
-	public void displayOrder() {
-		//for(HashMap.Entry<Integer, Product> line : order.entrySet()) {
-		
-		order.entrySet().forEach((line) -> {
-			System.out.println("\n" + line.getKey() + " - " + line.getValue().getName() + "\n");
-		});
+	public void setName(String getNameGuest) {
+		this.name = getNameGuest;
 	}
 	
-	public static void generateId(int idGenerated) {
-		idOrder = idGenerated;
+	
+	public String getnameProduct(ShoppingCart shop) {
+		String getNameProduct = null;
+		for(Product elements : shop.listCart){
+			if(shop.listCart != null ) {
+				getNameProduct = elements.getName();
+			//System.out.println("Produit : " + elements.getName() /* + "\nprice :  " + elements.getPrice()*/); 
+			}
+		}return getNameProduct;
 	}
+	public void setnameProduct(String getNameProduct) {
+		this.nameProduct = getNameProduct;
+	}
+	
+	
+	public int getProductQuantity(ShoppingCart shop) {
+		int productQuantity = 0;
+		for(Product elements : shop.listCart){
+			if(shop.listCart != null ) {
+			productQuantity = elements.getQuantity();
+			//System.out.println("Produit : " + elements.getName() /* + "\nprice :  " + elements.getPrice()*/); 
+			}
+		}return productQuantity;
+	}
+	public void setProductQuantity(int productQuantity) {
+		this.quantity = productQuantity;
+	}
+	
+	
+	public double getAmount(ShoppingCart shop) {
+		double amountOrder = shop.getCartTotalAmount();
+		return amountOrder;
+	}
+	public void setAmount(double amountOrder) {
+		this.amount = amountOrder;
+	}
+	
+	
+	public static void addAnOrder(int id, String name, String nameProduct,int quantity,  double price){
+		Order addOrder = new Order(id, name, nameProduct, quantity, price);
+		order.add(addOrder);
+		
+	}
+	
+	public void clearShippingCart(int id) {
+			order.remove(id);
+	}
+	
+	
 }

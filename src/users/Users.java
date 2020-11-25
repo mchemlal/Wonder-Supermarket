@@ -42,20 +42,19 @@ public class Users {
 		admin.add(new Admin("admin", "admin123"));
 		for(Admin elements : admin) {
 			//si les noms + les pass sont == au scanners d'un utilisateur
-			if(elements.getName().equals(scanName) && elements.getPassword().equals(scanPassword)) {
-				if(elements.getPassword().equals("admin123")) {
+			if(elements.getName().equals(scanName) && elements.getPassword().equals(scanPassword) && elements.getPassword().equals("admin123")) {
 					System.out.println("Welcome to wonder market " + elements.getName() + "\n");
 					Input.displayAdminMenu();
-				}else {
+			}else {
 					System.out.println("You don't have the rights to log as an administrator\n");
 					Input.displayMainMenu();
 				}
 			}
 		}
-	}
+	
 	
 	public static void createAccount(String scanName, String scanPassword) {
-		 System.out.println("Account created\n");
+		 System.out.println("Account created, please log in again\n");
 		customers.add(new Customers(scanName, scanPassword));
 		 System.out.println(customers);
 		// addGuest(scanName, scanPassword) ;

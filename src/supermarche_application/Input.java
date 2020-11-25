@@ -44,37 +44,34 @@ public class Input {
 				System.out.println("Enter your password");
 				String UserPassLog = scanLog.nextLine();
 				
+				
 				if(choiceUser == 1 ){	
 					
 					users.getUserData(UserNameLog, UserPassLog);
 					System.out.println(Users.customers);
-					
 					}
 				else if(choiceUser == 2) {
 					users.getUserDataAdmin(UserNameLog, UserPassLog) ;
-					break;
-				
+					
 					
 				}else if(choiceUser == 3) {
 					users.createAccount(UserNameLog, UserPassLog);
-					break;
+					displayMainMenu();
+					
+				}else if(choiceUser == 4) {
+					System.out.println("Au revoir");
+					System.exit(1);	
 				}
-
-			else if(choiceUser == 4) {
-				System.out.println("Au revoir");
-				System.exit(0);
-			}else {
-				System.out.println("Veuillez entrer un chiffre entre 1 et 3");
-			}
-			
-			
-			}catch(InputMismatchException e){
+				else{
+					System.out.println("Veuillez entrer un chiffre entre 1 et 3");
+				}
+	
+				}catch(InputMismatchException e){
 				System.out.println("veuillez entrez un chiffre entre 1 et 3");
+				}
+				}
 			}
-			}
-		}
-
-	 
+ 
 	public static void displayAdminMenu() {
     boolean isInProgressAdminMenu = false;
 	while(!isInProgressAdminMenu) {
@@ -171,12 +168,7 @@ public class Input {
 		if(BuyOrReturn.equals("b")) {
 			int idOrder = 1;
 			System.out.println("Thank you for buying, you will receive a email soon ");
-			//on set l'id
-			Allorders.generateId(idOrder);
-			
-			//methode qui recupere la liste achetée
-			Allorders.createOrder(listShoppinCart);
-			
+
 			//methode qui reset le panier
 			listShoppinCart.clearShippingCart();
 			// on genere un id pour cette commande

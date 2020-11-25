@@ -55,9 +55,14 @@ public class ShoppingCart {
 		Product addProduct = new Product(id, name, price, quantity);
 		listCart.add(addProduct);
 	}
-
+	
+	
 	public void clearShippingCart() {
 			listCart.removeAll(listCart);
+	}
+	
+	public void checkQuantity() {
+		
 	}
 	
 }

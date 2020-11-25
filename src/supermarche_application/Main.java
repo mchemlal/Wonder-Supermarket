@@ -4,23 +4,11 @@ import java.awt.EventQueue;
 
 
 public class Main {
-		
-	
 
 	public static void main(String[] args) {
 		
-		EventQueue.invokeLater(new Runnable(){
-			
-			public void run() {
+			Input.displayMainMenu();
 				
-				try {
-					Input.displayMainMenu();
-					}catch (Exception e) {
-					e.printStackTrace();
-					
-				}
-			}
 
-		});
 	}
 }

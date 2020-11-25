@@ -4,6 +4,7 @@ public class Customers {
 
 	private String name;
 	private String password;
+	private int id;
 	
 	public Customers(String name, String password) {
 		this.name = name;

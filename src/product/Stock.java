@@ -24,7 +24,6 @@ public class Stock {
 			System.out.println(listStock.get(i).getId()+") nom : " + listStock.get(i).getName() + ",prix : "+ listStock.get(i).getPrice()+ 
 					", Quantity : "+ listStock.get(i).getQuantity() + "\n");
 		}
-       
     }
 	
 	//ajouter un produit
