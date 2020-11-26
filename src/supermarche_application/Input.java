@@ -108,19 +108,25 @@ public class Input {
 		}else if (choiceAdmin == 3) {
 			
 			Allorders.displayGuestOrder();
+			
 			System.out.println("\nWhat do you want to do?\n"
 								+ "p - process the order\n"
 								+ "m - back to main menu\n");
 			
-				String AdminChoiceOrder = scanUser.nextLine();
+				String AdminChoiceOrder = scanUser.next();
 			
 					if(AdminChoiceOrder.equals("p")) {
-				
-						System.out.println("\nType the id to process the order");
-						int idProcessOrder = scanUser.nextInt();
-						Allorders.clearOrder(idProcessOrder);
-						System.out.println("\nOrder deleted correctly\n");
-				
+						
+						if(Allorders.getOrder().isEmpty()) {
+							System.out.println("\nYour order list is empty\n");
+						}else {
+						
+							System.out.println("\nType the id to process the order");
+							int idProcessOrder = scanUser.nextInt();
+						
+							Allorders.clearOrder(idProcessOrder);
+						}
+						
 					}else if(AdminChoiceOrder.equals("m")) {
 						displayAdminMenu();
 					}
@@ -185,22 +191,27 @@ public class Input {
 		boolean isBuying = false;
 		while(!isBuying) {
 		System.out.println("Add to your cart your chosen products by tipping in the matching Id ");
-
 		chooseId = scanUser.nextInt();
-		try {
-		System.out.println("Choose a quantity : ");
-		chooseQuantity = scanUser.nextInt();
 		
+		try {
+			System.out.println("\nChoose a quantity : ");
+			chooseQuantity = scanUser.nextInt();
+
 		}catch(InputMismatchException e){
 			System.out.println("wrong key");
 		}finally {
 			scanUser.nextLine();
 		}
 		
+			
 		listStock.choseProductById(chooseId, chooseQuantity);
 		listShoppinCart.displayCart();
-	
+		
+			if(listShoppinCart.getCartTotalAmount() == 0) {
+				listStock.displayProducts();
+			}else {
 			System.out.println("What do you want to do?\n b - Buy your shopping cart \n r - return");
+			}
 			Scanner scan = new Scanner(System.in);
 			String BuyOrReturn = scan.nextLine();
 			
@@ -219,7 +230,6 @@ public class Input {
 			
 			//methode qui reset le panier
 			listShoppinCart.clearShippingCart();
-			
 			
 			orderIdent++;
 			displayCustomerMenu();	

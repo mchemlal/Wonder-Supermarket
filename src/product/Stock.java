@@ -1,6 +1,9 @@
 package product;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+
+import supermarche_application.Input;
 
 public class Stock {
 
@@ -21,10 +24,12 @@ public class Stock {
 	//afficher tous les produits dans la console
 	public static void displayProducts() {
 		for(int i = 0; i < listStock.size(); i++){
+			if(listStock.get(i).getQuantity() > 0 ) {
 			System.out.println(listStock.get(i).getId()+") nom : " + listStock.get(i).getName() + ",prix : "+ listStock.get(i).getPrice()+ 
 					", Quantity : "+ listStock.get(i).getQuantity() + "\n");
+			}
 		}
-    }
+	}
 	
 	//ajouter un produit
 	 public void addProduct(int Id, String name,double price, int quantity) {		
@@ -34,18 +39,29 @@ public class Stock {
 	 
 	 public void choseProductById(int scanId, int scanQuantity){
 			for(Product elements : listStock){
-				if(scanId == elements.getId()){
-					System.out.println("the product " + elements.getName() + " has been added to cart\n");
-					ShoppingCart.addToCart(elements.getId(), elements.getName(), elements.getPrice(), scanQuantity);
-					int updateQuantite = elements.getQuantity() - scanQuantity;
-					elements.setQuantity(updateQuantite);
+				if(scanId == elements.getId()) {
+					if(scanQuantity < elements.getQuantity()) {
+						
+						System.out.println("the product " + elements.getName() + " has been added to cart\n");
+						ShoppingCart.addToCart(elements.getId(), elements.getName(), elements.getPrice(), scanQuantity);
+						int updateQuantite = elements.getQuantity() - scanQuantity;
+						elements.setQuantity(updateQuantite);
+					}else {
+						System.out.println("\nPlease make sure you choose the right quantity\n");
 				}
-
 			}
-
 		}
-	 public void setQuantity() {
-		
 	 }
 	 
+	 public static void chooseId(int scanId){
+			if(scanId > listStock.size()) {
+				System.out.println("\nThis product doesn't exist\n");
+				
+				displayProducts();
+				Input.addInputToCart();	
+			}else {
+				
+			
+			}
+	 }
 }

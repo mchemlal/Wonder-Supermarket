@@ -3,6 +3,7 @@ package product;
 import java.util.ArrayList;
 import java.util.List;
 
+import supermarche_application.Input;
 import users.Customers;
 import users.Users;
 
@@ -147,15 +148,14 @@ public class Order {
 	}
 	
 	public void clearOrder(int scanid) {
-		/*for(Order elements : order) {
-			if(elements.getId() == scanid + 1) {
-			order.remove(elements);
+		for(Order elements : order) {
+			if(elements.getId() == scanid) {
+			order.remove(scanid - 1);
+			System.out.println("\nOrder deleted correctly\n");
 			
-			}*/
-		if(order.contains(scanid)){
-			order.remove(order.get(scanid));
+			Input.displayAdminMenu();
+			}
 		}
 	}
-	
 	
 }
