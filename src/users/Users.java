@@ -21,7 +21,7 @@ public class Users {
 
 	
 	public static void getUserData(String scanName, String scanPassword) {
-		customers.add(new Customers("customer", "customer"));
+		customers.add(new Customers("c", "c"));
 		for(int i = 0; i < customers.size(); i ++ ) {
 			Customers user = customers.get(i);
 			if(user.getName().equals(scanName) && user.getPassword().equals(scanPassword)) 
@@ -54,9 +54,8 @@ public class Users {
 	
 	
 	public static void createAccount(String scanName, String scanPassword) {
-		 System.out.println("Account created, please log in again\n");
+		 System.out.println("Account created\n");
 		customers.add(new Customers(scanName, scanPassword));
-		 System.out.println(customers);
 		// addGuest(scanName, scanPassword) ;
 		 //Input.displayMainMenu();
 

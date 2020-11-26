@@ -1,6 +1,8 @@
 package product;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import users.Customers;
 import users.Users;
 
@@ -23,15 +25,21 @@ public class Order {
 	
 	public Order() {
 		order = new ArrayList<>();
+		//this.setId(idOrder);
 		this.setName2(name);
 		this.setNameProducts(nameProduct);
 		this.setProductQuantity(quantity) ;
-		this.setTotalAmount(amount) ;
+		this.setTotalAmount(amount);
 	}
 	
-	public static int orderId(int idGenerated) {
-		idOrder = idGenerated;
-		return idOrder;
+	
+
+	public static ArrayList<Order> getOrder() {
+		return order;
+	}
+
+	public static void setOrder(ArrayList<Order> order) {
+		Order.order = order;
 	}
 
 	public String orderGuestName(Users utilisateur) {
@@ -80,7 +88,13 @@ public class Order {
 	}
 
 	/*--------------------- accesseurs ------------------------*/
-	
+	public static int getId() {
+		idOrder = idOrder;
+		return idOrder;
+	}
+	public void setId(int idOrder) {
+		this.idOrder = idOrder;
+	}
 	public String getName() {
 		return name;
 	}
@@ -120,7 +134,8 @@ public class Order {
 	
 	public void displayGuestOrder() {
 		for (Order eachItem : order) {
-			System.out.println("\nCommande n° " + idOrder+ "\n"
+			
+			System.out.println("\nCommande n° " + eachItem.getId()+ "\n"
 							 + "Name : "  + eachItem.getName() + "\n"
 							 + "Product : " + eachItem.getNameProduct()  + "\n"
 							 + "Quantity : " + eachItem.getQuantity()  + "\n"
@@ -128,7 +143,13 @@ public class Order {
 		}
 	}
 	
-	public void clearShippingCart(int id) {
-			order.remove(id);
-	}	
+	public void clearOrder(int scanid) {
+		for(Order elements : order) {
+			if(elements.getId() == scanid + 1) {
+			order.remove(elements);
+			
+			}
+		}
+	}
+	
 }
