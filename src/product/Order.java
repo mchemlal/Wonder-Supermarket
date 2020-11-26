@@ -144,12 +144,15 @@ public class Order {
 	}
 	
 	public void clearOrder(int scanid) {
-		for(Order elements : order) {
+		/*for(Order elements : order) {
 			if(elements.getId() == scanid + 1) {
 			order.remove(elements);
 			
-			}
+			}*/
+		if(order.contains(scanid)){
+			order.remove(order.get(scanid));
 		}
 	}
+	
 	
 }

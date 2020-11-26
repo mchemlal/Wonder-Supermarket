@@ -11,6 +11,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Scanner;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -30,6 +31,12 @@ import javax.swing.table.TableColumnModel;
 
 import com.sun.jdi.event.Event;
 
+import product.Order;
+import product.ShoppingCart;
+import product.Stock;
+import supermarche_application.Input;
+import users.Users;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -44,6 +51,11 @@ import javax.swing.table.TableColumnModel;
 public class Window extends JFrame {
 	 
 	private static final long serialVersionUID = 1L;
+	public static Stock listStock = new Stock(); 
+	public static ShoppingCart listShoppinCart = new ShoppingCart();
+	public static Users users = new Users();
+	public static Order Allorders = new Order();
+	public static Scanner scanUser = new Scanner(System.in);
 
 	public Window() {
 
@@ -64,6 +76,12 @@ public class Window extends JFrame {
 		JPanel paneCustomer = new JPanel();
 		JPanel paneAdminStock = new JPanel();
 		JPanel paneAdminOrder = new JPanel();
+		
+		
+		this.add(paneStart);
+		this.add(paneCustomer);
+		this.add(paneAdminStock);
+		this.add(paneAdminOrder);
 
 		setContentPane(paneStart);
 		paneCustomer.setBackground(Color.ORANGE);
@@ -96,7 +114,6 @@ public class Window extends JFrame {
 
 		JPasswordField textFieldPassword = new JPasswordField();
 		textFieldPassword.setColumns(35);
-		
 
 		JButton buttonCreateAnAccount = new JButton();
 		buttonCreateAnAccount.setText("Create an account");
@@ -168,187 +185,27 @@ public class Window extends JFrame {
 		JTextField textChooseQuantityAdmin = new JTextField();
 		textChooseQuantityAdmin.setColumns(29);
 
-		/*-------------------------------------------------library -------------------------------------*/
-		        /*JTextField textTitle = new JTextField();
-		        textTitle.setColumns(29);
+	
+		
+		
+		buttonValidateLogin.addActionListener(new ActionListener() {
+		
+        public void actionPerformed(ActionEvent e) {
+        String pass = new String(textFieldPassword.getPassword());
+        
+        	if(users.getUserData(textFieldLogin.getText(), pass) );{
+        		setContentPane(paneCustomer);
+        		revalidate();
+        	}
+        	if(users.getUserDataAdmin(textFieldLogin.getText(),pass) ) {
+        		setContentPane(paneAdminStock);
+        		revalidate();
+        	}
+        	
+        }
+        
+	});
 
-		        JLabel labelAuthor = new JLabel();
-		        labelAuthor.setText("Author : ");
-		        labelAuthor.setForeground(Color.white);
-
-		        JTextField textAuthor = new JTextField();
-		        textAuthor.setColumns(29);
-
-		        JLabel labelYear = new JLabel();
-		        labelYear.setText("Year : ");
-		        labelYear.setForeground(Color.white);
-
-		        JTextField textYear = new JTextField();
-		        textYear.setColumns(29);
-
-		        JLabel labelEditor = new JLabel();
-		        labelEditor.setText("Editor : ");
-		        labelEditor.setForeground(Color.white);
-
-		        JTextField textEditor = new JTextField();
-		        textEditor.setColumns(29);
-
-		        JLabel labelLanguage = new JLabel();
-		        labelLanguage.setText("lang. : ");
-		        labelLanguage.setForeground(Color.white);
-
-		        JTextField textLanguage = new JTextField();
-		        textLanguage.setColumns(29);
-
-		        JLabel labelId = new JLabel();
-		        labelId.setText("Id: ");
-		        labelId.setForeground(Color.white);
-
-		        JTextField textId = new JTextField();
-		        textId.setColumns(29);
-
-		        JButton buttonValidate = new JButton();
-		        buttonValidate.setText("Validate");
-
-		        JLabel labelButtonRadio = new JLabel("Choose a category : ");
-		        labelButtonRadio.setForeground(Color.white);
-
-		        JRadioButton buttonTypeManga = new JRadioButton("Manga");
-		        buttonTypeManga.setActionCommand("Manga");
-		        buttonTypeManga.setForeground(Color.white);
-
-		        JRadioButton buttonNovel = new JRadioButton("Novel");
-		        buttonNovel.setActionCommand("Novel");
-		        buttonNovel.setForeground(Color.white);
-
-		        JRadioButton buttonMagazine = new JRadioButton("Magazine");
-		        buttonMagazine.setActionCommand("Magazine");
-		        buttonMagazine.setForeground(Color.white);
-
-		        ButtonGroup buttonGroup= new ButtonGroup();
-		        buttonGroup.add(buttonTypeManga);
-		        buttonGroup.add(buttonNovel);
-		        buttonGroup.add(buttonMagazine);
-
-		        JLabel labelConfirm = new JLabel();
-		        labelConfirm.setText("New book added in the library !");
-		        labelConfirm.setForeground(Color.white);
-		        labelConfirm.setFont(new Font("Courier New ", Font.BOLD, 15));
-
-		        JLabel labelFailure = new JLabel();
-		        labelFailure.setText("Please be focus !");
-		        labelFailure.setForeground(Color.white);
-		        labelFailure.setFont(new Font("Courier New ", Font.BOLD, 15));
-
-		        JComboBox chooseTypeManga = new JComboBox();
-		        chooseTypeManga.setVisible(false);
-
-		        JOptionPane.showMessageDialog(null, " WARNING - this content is restricted under 18");
-
-
-		        //Panel Search
-		        JButton getAllBooks = new JButton();
-		        getAllBooks.setText("Print all books");
-
-		        JButton getBooksStartByA = new JButton();
-		        getBooksStartByA.setText("Print books started by A");
-
-		        JButton getBookODD = new JButton();
-		        getBookODD.setText("Print odd id books");
-
-		        JTextArea resultLabel = new JTextArea(20, 28);
-
-		        JButton getBookType = new JButton();
-		        getBookType.setText("Print type books");
-
-
-		        //PanelResult
-		        JButton buttonDeleteResult = new JButton("Delete");
-		        buttonDeleteResult.setForeground(Color.black);
-
-		        JLabel resultTable = new JLabel();
-		        Object [][] rec = {
-		                { "1", "", "", "", "" },
-		                { "2", "", "", "", ""},
-		                { "3", "", "", "", ""},
-		                { "4", "", "", "", ""},
-		                { "5", "", "", "", ""},
-		                { "6", "", "", "", ""},
-		        };
-
-		        String[] header = { "Id", "Title", "Editor", "year", "boolean"};
-		        JTable taberesult = new JTable(rec, header);
-
-		        TableColumnModel columnModel = taberesult.getColumnModel();
-		        columnModel.getColumn(0).setPreferredWidth(10);
-		        columnModel.getColumn(1).setPreferredWidth(70);
-		        columnModel.getColumn(2).setPreferredWidth(70);
-		        columnModel.getColumn(3).setPreferredWidth(70);
-		        columnModel.getColumn(4).setPreferredWidth(70);
-
-
-		        /***********************************************************/
-		/**************** Add components in Panel ******************/
-		/***********************************************************/
-
-		/*paneStart.add(MainTitle);
-
-		paneAddBook.add(labelTitle);
-		paneAddBook.add(textTitle);
-		paneAddBook.add(labelAuthor);
-		paneAddBook.add(textAuthor);
-		paneAddBook.add(labelYear);
-		paneAddBook.add(textYear);
-		paneAddBook.add(labelEditor);
-		paneAddBook.add(textEditor);
-		paneAddBook.add(labelLanguage);
-		paneAddBook.add(textLanguage);
-		paneAddBook.add(labelId);
-		paneAddBook.add(textId);
-		paneAddBook.add(labelButtonRadio);
-		paneAddBook.add(buttonTypeManga);
-		paneAddBook.add(buttonNovel);
-		paneAddBook.add(buttonMagazine);
-		paneAddBook.add(buttonValidate);
-		paneAddBook.add(chooseTypeManga);
-		paneAddBook.add(labelConfirm);
-		paneAddBook.add(labelFailure);
-
-		paneSearch.add(getAllBooks);
-		paneSearch.add(getBooksStartByA);
-		paneSearch.add(getBookODD);
-		paneSearch.add(getBookType);
-		paneSearch.add(resultLabel);
-
-		paneResultTable.add(taberesult);
-		paneResultTable.add(buttonDeleteResult);*/
-
-
-		/***********************************************************/
-		/********* Configuration of the application menu ***********/
-		/***********************************************************/
-
-		/*JMenuBar monMenu = new JMenuBar();
-		this.setJMenuBar(monMenu);
-
-		JMenu menuOptions = new JMenu("Options");
-		monMenu.add(menuOptions);
-
-		JMenuItem subMenuNew = new JMenuItem("Add book");
-		JMenuItem subMenuSearch = new JMenuItem("Search in the library");
-		JMenuItem subMenuResult = new JMenuItem("Result");
-		JMenuItem subMenuExit = new JMenuItem("Exit");
-
-		menuOptions.add(subMenuNew);
-		menuOptions.add(subMenuSearch);
-		menuOptions.add(subMenuResult);
-		menuOptions.add(subMenuExit);*/
-
-
-		/***********************************************************/
-		/**************** User actions Menu management *************/
-		/***********************************************************/
-
-
-	}
-}	
+	
+	}	
+}

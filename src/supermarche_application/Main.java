@@ -9,7 +9,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-			//Input.displayMainMenu();
+		//	Input.displayMainMenu();
 			Window window = new Window();
 			window.setVisible(true);
 	}
