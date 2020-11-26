@@ -7,6 +7,10 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -24,244 +28,327 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumnModel;
 
+import com.sun.jdi.event.Event;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+import javax.swing.table.TableColumnModel;
+
 public class Window extends JFrame {
 	 
 	private static final long serialVersionUID = 1L;
 
 	public Window() {
+
+		/*********************************************/
+		/********* Configuration of JFrame ***********/
+		/*********************************************/
+		super("Wonder Supermarket");
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setSize(800, 600);
+		this.setResizable(false);
+		this.setLocationRelativeTo(null);
+
+		/***********************************************************/
+		/***************** Configuration of JPanel *****************/
+		/***********************************************************/
+
+		JPanel paneStart = new JPanel();
+		JPanel paneCustomer = new JPanel();
+		JPanel paneAdminStock = new JPanel();
+		JPanel paneAdminOrder = new JPanel();
+
+		setContentPane(paneStart);
+		paneCustomer.setBackground(Color.ORANGE);
+		paneAdminStock.setBackground(Color.BLUE);
+		paneAdminOrder.setBackground(Color.BLUE);
+
+		/***********************************************************/
+		/************** Configuration of Layout ********************/
+		/***********************************************************/
+
+		paneStart.setLayout(new FlowLayout(FlowLayout.CENTER));
+		paneCustomer.setLayout(new FlowLayout(FlowLayout.CENTER));
+		paneAdminStock.setLayout(new FlowLayout(FlowLayout.CENTER));
+		paneAdminOrder.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+		/***********************************************************/
+		/********* Configuration Components of Panel ***************/
+		/***********************************************************/
+
+		// PANEL START
+		JLabel labelMainMenu = new JLabel("Welcome to the Wonder Supermarket");
+		labelMainMenu.setPreferredSize(new Dimension(500,200));
+		labelMainMenu.setFont(new Font("Courier New ", Font.BOLD, 25));
 		
-		 /*********************************************/
-        /********* Configuration of JFrame ***********/
-        /*********************************************/
+		JLabel login = new JLabel("Login : ");
+		login.setFont(new Font("Courier New ", Font.BOLD, 20));
+		
+		JTextField textFieldLogin = new JTextField();
+		textFieldLogin.setColumns(35);
 
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(350, 500);
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
+		JPasswordField textFieldPassword = new JPasswordField();
+		textFieldPassword.setColumns(35);
+		
 
-        /***********************************************************/
-        /***************** Configuration of JPanel *****************/
-        /***********************************************************/
+		JButton buttonCreateAnAccount = new JButton();
+		buttonCreateAnAccount.setText("Create an account");
 
-        JPanel paneStart = new JPanel();
-        JPanel paneSearch = new JPanel();
-        JPanel paneAddBook = new JPanel();
-        JPanel paneResultTable = new JPanel();
+		JButton buttonValidateLogin = new JButton();
+		buttonValidateLogin.setText("Validate");
 
-        setContentPane(paneStart);
-        paneStart.setBackground(Color.GREEN);
-        paneSearch.setBackground(Color.ORANGE);
-        paneAddBook.setBackground(Color.BLUE);
-        paneResultTable.setBackground(Color.RED);
+		JButton buttonExitButton = new JButton();
+		buttonExitButton.setText("Exit");
+		
+		JLabel space = new JLabel();
+		space.setPreferredSize(new Dimension(900,0));
+		
+		
+//--------------
 
+		paneStart.add(labelMainMenu);
+		//paneStart.add(login);
+		paneStart.add(textFieldLogin);
+		paneStart.add(textFieldPassword);
+		paneStart.add(space);
+		paneStart.add(buttonCreateAnAccount);
+		paneStart.add(buttonValidateLogin);
+		paneStart.add(buttonExitButton);
+		
+		// PANEL CUSTOMER
+		JLabel labelCustomer = new JLabel();
+		labelCustomer.setPreferredSize(new Dimension(800, 600));
+		labelCustomer.setForeground(Color.white);
+		labelCustomer.setText("Welcome to Wonder Supermarket, feel free to enjoy our delights !");
 
-        /***********************************************************/
-        /************** Configuration of Layout ********************/
-        /***********************************************************/
+		String[] chooseItemCustomer = {"bread", "milk", "pomme"};
+		JComboBox comboBoxProductsListCustomer = new JComboBox(chooseItemCustomer); // Liste de produits
+		comboBoxProductsListCustomer.setSelectedIndex(2);
 
-        paneStart.setLayout(new FlowLayout(FlowLayout.CENTER));
-        paneSearch.setLayout(new FlowLayout(FlowLayout.CENTER));
-        paneResultTable.setLayout(new FlowLayout(FlowLayout.CENTER));
-        paneAddBook.setLayout(new FlowLayout(FlowLayout.LEFT));
+		JLabel labelproductQuantity = new JLabel();
+		labelproductQuantity.setText("Choose your quantity : ");
+		JTextField textProductQuantity = new JTextField();
+		textProductQuantity.setColumns(29);
+		JTextArea textAreaDisplayProduct = new JTextArea(); // Ajouter un produit
+		textAreaDisplayProduct.setColumns(29);
 
+		JButton buttonAddProductToCart = new JButton();
+		buttonAddProductToCart.setText("Add to your cart");
 
-        /***********************************************************/
-        /********* Configuration Components of Panel ***************/
-        /***********************************************************/
+		JLabel labelDisplayCart = new JLabel();
+		labelDisplayCart.setText("Your shopping cart : ");
+		JTextArea textAreaDisplayCart = new JTextArea(10, 10);
 
-        //Panel Start
-        JLabel MainTitle = new JLabel("Welcome to the Crazy4 Library");
-        MainTitle.setPreferredSize(new Dimension(330, 300));
-        MainTitle.setFont(new Font("Courier New ", Font.BOLD, 20));
+		JButton buttonBuyYourShoppingCart = new JButton();
+		buttonBuyYourShoppingCart.setText("Buy");
 
-
-        //Panel AddBook
-        JLabel labelTitle = new JLabel();
-        labelTitle.setText("Title : ");
-        labelTitle.setForeground(Color.white);
-
-        JTextField textTitle = new JTextField();
-        textTitle.setColumns(29);
-
-        JLabel labelAuthor = new JLabel();
-        labelAuthor.setText("Author : ");
-        labelAuthor.setForeground(Color.white);
-
-        JTextField textAuthor = new JTextField();
-        textAuthor.setColumns(29);
-
-        JLabel labelYear = new JLabel();
-        labelYear.setText("Year : ");
-        labelYear.setForeground(Color.white);
-
-        JTextField textYear = new JTextField();
-        textYear.setColumns(29);
-
-        JLabel labelEditor = new JLabel();
-        labelEditor.setText("Editor : ");
-        labelEditor.setForeground(Color.white);
-
-        JTextField textEditor = new JTextField();
-        textEditor.setColumns(29);
-
-        JLabel labelLanguage = new JLabel();
-        labelLanguage.setText("lang. : ");
-        labelLanguage.setForeground(Color.white);
-
-        JTextField textLanguage = new JTextField();
-        textLanguage.setColumns(29);
-
-        JLabel labelId = new JLabel();
-        labelId.setText("Id: ");
-        labelId.setForeground(Color.white);
-
-        JTextField textId = new JTextField();
-        textId.setColumns(29);
-
-        JButton buttonValidate = new JButton();
-        buttonValidate.setText("Validate");
-
-        JLabel labelButtonRadio = new JLabel("Choose a category : ");
-        labelButtonRadio.setForeground(Color.white);
-
-        JRadioButton buttonTypeManga = new JRadioButton("Manga");
-        buttonTypeManga.setActionCommand("Manga");
-        buttonTypeManga.setForeground(Color.white);
-
-        JRadioButton buttonNovel = new JRadioButton("Novel");
-        buttonNovel.setActionCommand("Novel");
-        buttonNovel.setForeground(Color.white);
-
-        JRadioButton buttonMagazine = new JRadioButton("Magazine");
-        buttonMagazine.setActionCommand("Magazine");
-        buttonMagazine.setForeground(Color.white);
-
-        ButtonGroup buttonGroup= new ButtonGroup();
-        buttonGroup.add(buttonTypeManga);
-        buttonGroup.add(buttonNovel);
-        buttonGroup.add(buttonMagazine);
-
-        JLabel labelConfirm = new JLabel();
-        labelConfirm.setText("New book added in the library !");
-        labelConfirm.setForeground(Color.white);
-        labelConfirm.setFont(new Font("Courier New ", Font.BOLD, 15));
-
-        JLabel labelFailure = new JLabel();
-        labelFailure.setText("Please be focus !");
-        labelFailure.setForeground(Color.white);
-        labelFailure.setFont(new Font("Courier New ", Font.BOLD, 15));
-
-        JComboBox chooseTypeManga = new JComboBox();
-        chooseTypeManga.setVisible(false);
-
-        JOptionPane.showMessageDialog(null, " WARNING - this content is restricted under 18");
+		JButton buttonDeleteYourShoppingCart = new JButton();
+		buttonDeleteYourShoppingCart.setText("Delete");
 
 
-        //Panel Search
-        JButton getAllBooks = new JButton();
-        getAllBooks.setText("Print all books");
+		// PANEL ADMINISTRATOR STOCK
+		JLabel labelAdmin = new JLabel();
+		labelAdmin.setPreferredSize(new Dimension(800, 600));
+		labelAdmin.setForeground(Color.white);
+		labelAdmin.setText("This is the admininistrator interface");
 
-        JButton getBooksStartByA = new JButton();
-        getBooksStartByA.setText("Print books started by A");
+		String[] chooseEachItemAdmin = {"bread", "milk", "pomme"};
+		JComboBox comboBoxChooseItemAdmin = new JComboBox(chooseEachItemAdmin); // Liste de produits
+		comboBoxChooseItemAdmin.setSelectedIndex(2);
 
-        JButton getBookODD = new JButton();
-        getBookODD.setText("Print odd id books");
+		JLabel labelChooseQuantityAdmin = new JLabel();
+		labelChooseQuantityAdmin.setText("Quantity : ");
+		JTextField textChooseQuantityAdmin = new JTextField();
+		textChooseQuantityAdmin.setColumns(29);
 
-        JTextArea resultLabel = new JTextArea(20, 28);
+		/*-------------------------------------------------library -------------------------------------*/
+		        /*JTextField textTitle = new JTextField();
+		        textTitle.setColumns(29);
 
-        JButton getBookType = new JButton();
-        getBookType.setText("Print type books");
+		        JLabel labelAuthor = new JLabel();
+		        labelAuthor.setText("Author : ");
+		        labelAuthor.setForeground(Color.white);
 
+		        JTextField textAuthor = new JTextField();
+		        textAuthor.setColumns(29);
 
-        //PanelResult
-        JButton buttonDeleteResult = new JButton("Delete");
-        buttonDeleteResult.setForeground(Color.black);
+		        JLabel labelYear = new JLabel();
+		        labelYear.setText("Year : ");
+		        labelYear.setForeground(Color.white);
 
-        JLabel resultTable = new JLabel();
-        Object [][] rec = {
-                { "1", "", "", "", "" },
-                { "2", "", "", "", ""},
-                { "3", "", "", "", ""},
-                { "4", "", "", "", ""},
-                { "5", "", "", "", ""},
-                { "6", "", "", "", ""},
-        };
+		        JTextField textYear = new JTextField();
+		        textYear.setColumns(29);
 
-        String[] header = { "Id", "Title", "Editor", "year", "boolean"};
-        JTable taberesult = new JTable(rec, header);
+		        JLabel labelEditor = new JLabel();
+		        labelEditor.setText("Editor : ");
+		        labelEditor.setForeground(Color.white);
 
-        TableColumnModel columnModel = taberesult.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(10);
-        columnModel.getColumn(1).setPreferredWidth(70);
-        columnModel.getColumn(2).setPreferredWidth(70);
-        columnModel.getColumn(3).setPreferredWidth(70);
-        columnModel.getColumn(4).setPreferredWidth(70);
+		        JTextField textEditor = new JTextField();
+		        textEditor.setColumns(29);
 
+		        JLabel labelLanguage = new JLabel();
+		        labelLanguage.setText("lang. : ");
+		        labelLanguage.setForeground(Color.white);
 
-        /***********************************************************/
-        /**************** Add components in Panel ******************/
-        /***********************************************************/
+		        JTextField textLanguage = new JTextField();
+		        textLanguage.setColumns(29);
 
-        paneStart.add(MainTitle);
+		        JLabel labelId = new JLabel();
+		        labelId.setText("Id: ");
+		        labelId.setForeground(Color.white);
 
-        paneAddBook.add(labelTitle);
-        paneAddBook.add(textTitle);
-        paneAddBook.add(labelAuthor);
-        paneAddBook.add(textAuthor);
-        paneAddBook.add(labelYear);
-        paneAddBook.add(textYear);
-        paneAddBook.add(labelEditor);
-        paneAddBook.add(textEditor);
-        paneAddBook.add(labelLanguage);
-        paneAddBook.add(textLanguage);
-        paneAddBook.add(labelId);
-        paneAddBook.add(textId);
-        paneAddBook.add(labelButtonRadio);
-        paneAddBook.add(buttonTypeManga);
-        paneAddBook.add(buttonNovel);
-        paneAddBook.add(buttonMagazine);
-        paneAddBook.add(buttonValidate);
-        paneAddBook.add(chooseTypeManga);
-        paneAddBook.add(labelConfirm);
-        paneAddBook.add(labelFailure);
+		        JTextField textId = new JTextField();
+		        textId.setColumns(29);
 
-        paneSearch.add(getAllBooks);
-        paneSearch.add(getBooksStartByA);
-        paneSearch.add(getBookODD);
-        paneSearch.add(getBookType);
-        paneSearch.add(resultLabel);
+		        JButton buttonValidate = new JButton();
+		        buttonValidate.setText("Validate");
 
-        paneResultTable.add(taberesult);
-        paneResultTable.add(buttonDeleteResult);
+		        JLabel labelButtonRadio = new JLabel("Choose a category : ");
+		        labelButtonRadio.setForeground(Color.white);
 
+		        JRadioButton buttonTypeManga = new JRadioButton("Manga");
+		        buttonTypeManga.setActionCommand("Manga");
+		        buttonTypeManga.setForeground(Color.white);
 
+		        JRadioButton buttonNovel = new JRadioButton("Novel");
+		        buttonNovel.setActionCommand("Novel");
+		        buttonNovel.setForeground(Color.white);
 
-        /***********************************************************/
-        /********* Configuration of the application menu ***********/
-        /***********************************************************/
+		        JRadioButton buttonMagazine = new JRadioButton("Magazine");
+		        buttonMagazine.setActionCommand("Magazine");
+		        buttonMagazine.setForeground(Color.white);
 
-        JMenuBar monMenu = new JMenuBar();
-        this.setJMenuBar(monMenu);
+		        ButtonGroup buttonGroup= new ButtonGroup();
+		        buttonGroup.add(buttonTypeManga);
+		        buttonGroup.add(buttonNovel);
+		        buttonGroup.add(buttonMagazine);
 
-        JMenu menuOptions = new JMenu("Options");
-        monMenu.add(menuOptions);
+		        JLabel labelConfirm = new JLabel();
+		        labelConfirm.setText("New book added in the library !");
+		        labelConfirm.setForeground(Color.white);
+		        labelConfirm.setFont(new Font("Courier New ", Font.BOLD, 15));
 
-        JMenuItem subMenuNew = new JMenuItem("Add book");
-        JMenuItem subMenuSearch = new JMenuItem("Search in the library");
-        JMenuItem subMenuResult = new JMenuItem("Result");
-        JMenuItem subMenuExit = new JMenuItem("Exit");
+		        JLabel labelFailure = new JLabel();
+		        labelFailure.setText("Please be focus !");
+		        labelFailure.setForeground(Color.white);
+		        labelFailure.setFont(new Font("Courier New ", Font.BOLD, 15));
 
-        menuOptions.add(subMenuNew);
-        menuOptions.add(subMenuSearch);
-        menuOptions.add(subMenuResult);
-        menuOptions.add(subMenuExit);
+		        JComboBox chooseTypeManga = new JComboBox();
+		        chooseTypeManga.setVisible(false);
+
+		        JOptionPane.showMessageDialog(null, " WARNING - this content is restricted under 18");
 
 
-        /***********************************************************/
-        /**************** User actions Menu management *************/
-        /***********************************************************/
-      
+		        //Panel Search
+		        JButton getAllBooks = new JButton();
+		        getAllBooks.setText("Print all books");
+
+		        JButton getBooksStartByA = new JButton();
+		        getBooksStartByA.setText("Print books started by A");
+
+		        JButton getBookODD = new JButton();
+		        getBookODD.setText("Print odd id books");
+
+		        JTextArea resultLabel = new JTextArea(20, 28);
+
+		        JButton getBookType = new JButton();
+		        getBookType.setText("Print type books");
+
+
+		        //PanelResult
+		        JButton buttonDeleteResult = new JButton("Delete");
+		        buttonDeleteResult.setForeground(Color.black);
+
+		        JLabel resultTable = new JLabel();
+		        Object [][] rec = {
+		                { "1", "", "", "", "" },
+		                { "2", "", "", "", ""},
+		                { "3", "", "", "", ""},
+		                { "4", "", "", "", ""},
+		                { "5", "", "", "", ""},
+		                { "6", "", "", "", ""},
+		        };
+
+		        String[] header = { "Id", "Title", "Editor", "year", "boolean"};
+		        JTable taberesult = new JTable(rec, header);
+
+		        TableColumnModel columnModel = taberesult.getColumnModel();
+		        columnModel.getColumn(0).setPreferredWidth(10);
+		        columnModel.getColumn(1).setPreferredWidth(70);
+		        columnModel.getColumn(2).setPreferredWidth(70);
+		        columnModel.getColumn(3).setPreferredWidth(70);
+		        columnModel.getColumn(4).setPreferredWidth(70);
+
+
+		        /***********************************************************/
+		/**************** Add components in Panel ******************/
+		/***********************************************************/
+
+		/*paneStart.add(MainTitle);
+
+		paneAddBook.add(labelTitle);
+		paneAddBook.add(textTitle);
+		paneAddBook.add(labelAuthor);
+		paneAddBook.add(textAuthor);
+		paneAddBook.add(labelYear);
+		paneAddBook.add(textYear);
+		paneAddBook.add(labelEditor);
+		paneAddBook.add(textEditor);
+		paneAddBook.add(labelLanguage);
+		paneAddBook.add(textLanguage);
+		paneAddBook.add(labelId);
+		paneAddBook.add(textId);
+		paneAddBook.add(labelButtonRadio);
+		paneAddBook.add(buttonTypeManga);
+		paneAddBook.add(buttonNovel);
+		paneAddBook.add(buttonMagazine);
+		paneAddBook.add(buttonValidate);
+		paneAddBook.add(chooseTypeManga);
+		paneAddBook.add(labelConfirm);
+		paneAddBook.add(labelFailure);
+
+		paneSearch.add(getAllBooks);
+		paneSearch.add(getBooksStartByA);
+		paneSearch.add(getBookODD);
+		paneSearch.add(getBookType);
+		paneSearch.add(resultLabel);
+
+		paneResultTable.add(taberesult);
+		paneResultTable.add(buttonDeleteResult);*/
+
+
+		/***********************************************************/
+		/********* Configuration of the application menu ***********/
+		/***********************************************************/
+
+		/*JMenuBar monMenu = new JMenuBar();
+		this.setJMenuBar(monMenu);
+
+		JMenu menuOptions = new JMenu("Options");
+		monMenu.add(menuOptions);
+
+		JMenuItem subMenuNew = new JMenuItem("Add book");
+		JMenuItem subMenuSearch = new JMenuItem("Search in the library");
+		JMenuItem subMenuResult = new JMenuItem("Result");
+		JMenuItem subMenuExit = new JMenuItem("Exit");
+
+		menuOptions.add(subMenuNew);
+		menuOptions.add(subMenuSearch);
+		menuOptions.add(subMenuResult);
+		menuOptions.add(subMenuExit);*/
+
+
+		/***********************************************************/
+		/**************** User actions Menu management *************/
+		/***********************************************************/
 
 
 	}
-}
+}	
