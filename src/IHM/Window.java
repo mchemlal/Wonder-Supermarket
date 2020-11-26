@@ -35,6 +35,7 @@ import product.Order;
 import product.ShoppingCart;
 import product.Stock;
 import supermarche_application.Input;
+//import supermarche_application.Input;
 import users.Users;
 
 import java.awt.BorderLayout;
@@ -51,11 +52,6 @@ import javax.swing.table.TableColumnModel;
 public class Window extends JFrame {
 	 
 	private static final long serialVersionUID = 1L;
-	public static Stock listStock = new Stock(); 
-	public static ShoppingCart listShoppinCart = new ShoppingCart();
-	public static Users users = new Users();
-	public static Order Allorders = new Order();
-	public static Scanner scanUser = new Scanner(System.in);
 
 	public Window() {
 
@@ -78,20 +74,19 @@ public class Window extends JFrame {
 		JPanel paneAdminOrder = new JPanel();
 		
 		
-		this.add(paneStart);
-		this.add(paneCustomer);
+		add(paneStart);
+		
 		this.add(paneAdminStock);
 		this.add(paneAdminOrder);
 
-		setContentPane(paneStart);
 		paneCustomer.setBackground(Color.ORANGE);
 		paneAdminStock.setBackground(Color.BLUE);
-		paneAdminOrder.setBackground(Color.BLUE);
+		
 
 		/***********************************************************/
 		/************** Configuration of Layout ********************/
 		/***********************************************************/
-
+		setContentPane(paneStart);
 		paneStart.setLayout(new FlowLayout(FlowLayout.CENTER));
 		paneCustomer.setLayout(new FlowLayout(FlowLayout.CENTER));
 		paneAdminStock.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -112,7 +107,7 @@ public class Window extends JFrame {
 		JTextField textFieldLogin = new JTextField();
 		textFieldLogin.setColumns(35);
 
-		JPasswordField textFieldPassword = new JPasswordField();
+		JTextField textFieldPassword = new JTextField();
 		textFieldPassword.setColumns(35);
 
 		JButton buttonCreateAnAccount = new JButton();
@@ -186,23 +181,31 @@ public class Window extends JFrame {
 		textChooseQuantityAdmin.setColumns(29);
 
 	
-		
+	
 		
 		buttonValidateLogin.addActionListener(new ActionListener() {
 		
         public void actionPerformed(ActionEvent e) {
-        String pass = new String(textFieldPassword.getPassword());
         
-        	if(users.getUserData(textFieldLogin.getText(), pass) );{
+        	/*
+        	if(users.getUserData(textFieldLogin.getText(),textFieldPassword.getText())) {
+        		add(paneCustomer);
         		setContentPane(paneCustomer);
+        		paneCustomer.setVisible(true);
         		revalidate();
         	}
-        	if(users.getUserDataAdmin(textFieldLogin.getText(),pass) ) {
+        */
+        	
+        	if(Input.users.getUserDataAdmin(textFieldLogin.getText(),textFieldPassword.getText())) {
         		setContentPane(paneAdminStock);
         		revalidate();
+        		
         	}
         	
-        }
+
+		}   
+        
+        
         
 	});
 

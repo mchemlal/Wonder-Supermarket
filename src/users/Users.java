@@ -19,44 +19,39 @@ public class Users {
 		this.admin = new ArrayList<>();
 	}
 
-	
-	public static boolean getUserData(String scanName, String scanPassword) {
-		 boolean matchData = false;
+	public boolean  getUserData(String dataName, String dataPassword) {
+	 boolean matchDatas = false;
 		customers.add(new Customers("c", "c"));
 		for(int i = 0; i < customers.size(); i ++ ) {
 			Customers user = customers.get(i);
-			if(user.getName().equals(scanName) && user.getPassword().equals(scanPassword)) 
+			if(user.getName().equals(dataName) && user.getPassword().equals(dataPassword)) 
 			{
 				System.out.println("Welcome to wonder market, " + user.getName() + "\n");
 				//menu principal client
 				Input.displayCustomerMenu();
-				matchData=true;
+				 matchDatas = true;
 			}else {
 				System.out.println("Please create an account");
-				System.out.println(user);
 				Input.displayMainMenu();
 			}
-		}
-		return matchData;
-		
+		}return matchDatas;
 	}	
 	
-	public static boolean getUserDataAdmin(String scanName, String scanPassword) {
-		boolean matchData = false;
+	public boolean  getUserDataAdmin(String dataName, String dataPassword) {
+		boolean matchDatas = false;
 		//je parcours l arraylist
-		admin.add(new Admin("admin", "admin"));
+		admin.add(new Admin("a", "a"));
 		for(Admin elements : admin) {
 			//si les noms + les pass sont == au scanners d'un utilisateur
-			if(elements.getName().equals(scanName) && elements.getPassword().equals(scanPassword) && elements.getPassword().equals("admin")) {
+			if(elements.getName().equals("a") && /*elements.getPassword().equals(dataPassword) && */dataPassword.equals("a")) {
 				System.out.println("Welcome to wonder market " + elements.getName() + "\n");
 				Input.displayAdminMenu();
-				matchData=true;
+				 matchDatas = true;
 			}else {
 					System.out.println("You don't have the rights to log as an administrator\n");
 					Input.displayMainMenu();
 				}
-			}
-		return matchData;
+			}return matchDatas;
 		}
 	
 	

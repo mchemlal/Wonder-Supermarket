@@ -9,8 +9,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		//	Input.displayMainMenu();
-			Window window = new Window();
-			window.setVisible(true);
+			Input.displayMainMenu();
+			//Window window = new Window();
+		   // window.setVisible(true);
 	}
 }

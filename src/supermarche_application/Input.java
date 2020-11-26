@@ -3,7 +3,6 @@ package supermarche_application;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import product.Order;
 import product.ShoppingCart;
 import product.Stock;
@@ -34,15 +33,17 @@ public class Input {
 			
 			while(!isInProgress) {
 				try {
+				
 					
 				int choiceUser = scanUser.nextInt();
 					
-				if(choiceUser == 1 ){	
+				if(choiceUser == 1 ){
 					System.out.println("Enter your login");
 					String UserNameLog = scanUser.next();
 					
 					System.out.println("Enter your password");
 					String UserPassLog = scanUser.next();
+					
 					users.getUserData(UserNameLog, UserPassLog);
 					break;
 					}
@@ -55,32 +56,38 @@ public class Input {
 					users.getUserDataAdmin(UserNameLog, UserPassLog);
 					break;
 					
-				}else if(choiceUser == 3) {
+				}else if(choiceUser == 3) {					
 					System.out.println("Enter your login");
 					String UserNameLog = scanUser.next();
 					
 					System.out.println("Enter your password");
 					String UserPassLog = scanUser.next();
+					
 					users.createAccount(UserNameLog, UserPassLog);
 					displayAdminMenu();
-					break;
-					
-				}else if(choiceUser == 4) {
-					System.out.println("Au revoir");
-					System.exit(1);	
-					
-					isInProgress=true;
-					
-					
-				}
 	
-				}catch(InputMismatchException e){
-				System.out.println("veuillez entrez un chiffre entre 1 et 3");
+				}else if(choiceUser == 4) {
+					System.out.println("thank you, bye");
+					System.exit(1);	
+				}else {
+					System.out.println("please enter a number between 1 to 3");
+					displayMainMenu();
 				}
-				}
-			}
+			
+	 		}catch(InputMismatchException e){
+				System.out.println("please enter a number between 1 to 3");
+				
+			}finally {
+				scanUser.nextLine();
+			}	
+	 	}displayMainMenu();
+
+	}
+
+
+
  
-	public static void displayAdminMenu() {
+	public static void displayAdminMenu(){
     boolean isInProgressAdminMenu = false;
 	while(!isInProgressAdminMenu) {
 		try {
@@ -105,29 +112,34 @@ public class Input {
 								+ "p - process the order\n"
 								+ "m - back to main menu\n");
 			
-			String AdminChoiceOrder = scanUser.next();
+				String AdminChoiceOrder = scanUser.nextLine();
 			
-			if(AdminChoiceOrder.equals("p")) {
+					if(AdminChoiceOrder.equals("p")) {
 				
-				System.out.println("\nType the id to process the order");
-					int idProcessOrder = scanUser.nextInt();
-					Allorders.clearOrder(idProcessOrder);
-					System.out.println("\nOrder deleted correctly\n");
+						System.out.println("\nType the id to process the order");
+						int idProcessOrder = scanUser.nextInt();
+						Allorders.clearOrder(idProcessOrder);
+						System.out.println("\nOrder deleted correctly\n");
 				
-			}else if(AdminChoiceOrder.equals("m")) {
-				displayAdminMenu();
+					}else if(AdminChoiceOrder.equals("m")) {
+						displayAdminMenu();
+					}
+				
 			}
+			else if (choiceAdmin == 4) {
+				System.out.println("Back to the main menu");
+				displayMainMenu();
+				break;
+			}else {
+				System.out.println("please enter a number between 1 to 4");
+				
+			}
+		}catch(InputMismatchException e) {
+			System.out.println("wrong key, please try again");
+			
+		}finally {
+			scanUser.nextLine();
 		}
-		else if (choiceAdmin == 4) {
-			System.out.println("Back to the main menu");
-			displayMainMenu();
-			break;
-		}else {
-			System.out.println("Veuillez entrer un chiffre entre 1 et 3");
-		}
-   }catch(InputMismatchException e) {
-	   System.out.println("Veuillez indiquer un chiffre entre 1 et 3");
-   }
 	}
 }
 	
@@ -156,10 +168,12 @@ public class Input {
 			System.out.println("Back to the main menu");
 			displayMainMenu();
 		}else {
-			System.out.println("Veuillez entrer un chiffre entre 1 et 3");
+			System.out.println("Please enter a number between 1 to 3");
 		}
 		}catch(InputMismatchException e) {
-			System.out.println("veuillez entrer un chiffre entre 1 et 3");
+			System.out.println("Wrong key, please try again");
+		}finally {
+			scanUser.nextLine();
 		}
 		}
 	}
@@ -179,6 +193,8 @@ public class Input {
 		
 		}catch(InputMismatchException e){
 			System.out.println("wrong key");
+		}finally {
+			scanUser.nextLine();
 		}
 		
 		listStock.choseProductById(chooseId, chooseQuantity);
@@ -221,30 +237,49 @@ public class Input {
 	
 	public static void addProductDatas() {
 		boolean isInProgressAdminDatas = false;
+		
 		while(!isInProgressAdminDatas) {
 		String addNameProduct = "";
 		double addPriceProduct = 0.00;
 		int addQuantityProduct = 0;
 		int addId = 4;
 		
+		try {
+			System.out.println("insert a product name : ");
+			addNameProduct = scanUser.next();
+		}catch(InputMismatchException e){
+			System.out.println("please enter a word");
+		}finally {
+			scanUser.nextLine();
+		}
 		
-		System.out.println("insert a product name : ");
-		addNameProduct = scanUser.next();
+		try {
+			System.out.println("insert a float price : ");
+			addPriceProduct = scanUser.nextDouble();
+		}
+		catch(InputMismatchException e){
+			System.out.println("please enter this type : 0,00");
+		}finally {
+			scanUser.nextLine();
+		}
 		
-		System.out.println("insert a float price : ");
-		addPriceProduct = scanUser.nextDouble();
-		
-		System.out.println("insert a quantity : ");
-		addQuantityProduct = scanUser.nextInt();
-		
+		try {
+			System.out.println("insert a quantity : ");
+			addQuantityProduct = scanUser.nextInt();
+		}
+		catch(InputMismatchException e){
+			System.out.println("please enter an entire number");
+		}finally {
+			scanUser.nextLine();
+		}
 
 		listStock.addProduct(addId, addNameProduct, addPriceProduct, addQuantityProduct);
 		addId++;
 		isInProgressAdminDatas = true;
 		}
 		System.out.println("Product addes successfully!\n ");
-		
-	
+		displayAdminMenu();
+
 	}
 	
 }

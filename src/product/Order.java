@@ -134,12 +134,15 @@ public class Order {
 	
 	public void displayGuestOrder() {
 		for (Order eachItem : order) {
-			
+			if(eachItem.getId() >= 1) {
 			System.out.println("\nCommande n° " + eachItem.getId()+ "\n"
 							 + "Name : "  + eachItem.getName() + "\n"
 							 + "Product : " + eachItem.getNameProduct()  + "\n"
 							 + "Quantity : " + eachItem.getQuantity()  + "\n"
 							 + "Total amount " +eachItem.getAmount() + "\n");
+			}else {
+				System.out.println("\nThere is no pending orders");
+			}
 		}
 	}
 	
