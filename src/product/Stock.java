@@ -9,7 +9,11 @@ public class Stock {
 
 	//liste de produit
 	private static ArrayList<Product> listStock;
-	//constructeur
+	
+	
+	
+	
+	//constructeur, creation d'une liste stock
 	public Stock() {
 		this.listStock= new ArrayList<>();
 		listStock.add(new Product(1,"bread", 2.50, 20));
@@ -37,6 +41,7 @@ public class Stock {
              listStock.add(addProduct);
        }
 	 
+	 //verification info scanner match quantite stock
 	 public void choseProductById(int scanId, int scanQuantity){
 			for(Product elements : listStock){
 				if(scanId == elements.getId()) {
@@ -53,6 +58,7 @@ public class Stock {
 		}
 	 }
 	 
+	//verification info scanner match reference stock
 	 public static void chooseId(int scanId){
 			if(scanId > listStock.size()) {
 				System.out.println("\nThis product doesn't exist\n");

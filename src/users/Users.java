@@ -19,6 +19,7 @@ public class Users {
 		this.admin = new ArrayList<>();
 	}
 
+	//recupère userName et password dans scanner, redirection menu client
 	public boolean  getUserData(String dataName, String dataPassword) {
 	 boolean matchDatas = false;
 		customers.add(new Customers("c", "c"));
@@ -37,6 +38,7 @@ public class Users {
 		}return matchDatas;
 	}	
 	
+	//recupère userName et password dans scanner, redirection menu admin
 	public boolean  getUserDataAdmin(String dataName, String dataPassword) {
 		boolean matchDatas = false;
 		//je parcours l arraylist
@@ -54,13 +56,10 @@ public class Users {
 			}return matchDatas;
 		}
 	
-	
+	//creation compte
 	public static void createAccount(String scanName, String scanPassword) {
 		 System.out.println("Account created\n");
 		customers.add(new Customers(scanName, scanPassword));
-		// addGuest(scanName, scanPassword) ;
-		 //Input.displayMainMenu();
-
 	}
 
 	

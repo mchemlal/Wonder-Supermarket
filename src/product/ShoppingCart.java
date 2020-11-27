@@ -5,9 +5,9 @@ import java.util.List;
 
 
 public class ShoppingCart {
-	public static ArrayList<Product> listCart = null;
+	public static ArrayList<Product> listCart;
 	
-	//constructeur
+	//constructeur 
 	public ShoppingCart() {
 		this.listCart = new ArrayList<>();
 		//listCart.add(new Product(1,"chocolate", 2.10, 2));
@@ -25,6 +25,7 @@ public class ShoppingCart {
 		ShoppingCart.listCart = listCart;
 	}
 
+	//calcul total panier client
 	public double getCartTotalAmount() {
 		double totalAmount = 0;
 		for (int i = 0; i < listCart.size(); i++) {
@@ -33,6 +34,7 @@ public class ShoppingCart {
 		return totalAmount;
 	}
 
+	//affichage panier
 	public void displayCart() {
 		int count = 0;
 		System.out.println(" ________________________");
@@ -50,18 +52,16 @@ public class ShoppingCart {
 		System.out.println("| Total Amount :" + getCartTotalAmount()+" | " + "Total items : " + count + "\n");
 	}
 	
+	//création d'un nouveau contenu panier
 	public static void addToCart(int id, String name, double price, int quantity){
 		Product addProduct = new Product(id, name, price, quantity);
 		listCart.add(addProduct);
 	}
 	
-	
+	//suppression du panier
 	public void clearShippingCart() {
 			listCart.removeAll(listCart);
 	}
 	
-	public void checkQuantity() {
-		
-	}
 	
 }

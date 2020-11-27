@@ -15,7 +15,7 @@ public class Order {
 	private int quantity;
 	private double amount;
 	
-	//constructeur
+	//constructeur objet  d'un item de la commande client
 	public Order(int idOrder, String name, String nameProduct, int quantity, double amount) {
 		this.idOrder = idOrder;
 		this.name = name;
@@ -24,6 +24,7 @@ public class Order {
 		this.amount = amount;
 	}
 	
+	//constructeur objet commande client
 	public Order() {
 		order = new ArrayList<>();
 		//this.setId(idOrder);
@@ -35,6 +36,7 @@ public class Order {
 	
 	
 
+	/*--------------------- accesseurs ------------------------*/
 	public static ArrayList<Order> getOrder() {
 		return order;
 	}
@@ -42,53 +44,7 @@ public class Order {
 	public static void setOrder(ArrayList<Order> order) {
 		Order.order = order;
 	}
-
-	public String orderGuestName(Users utilisateur) {
-		String getNameGuest = null;
-		for(Customers CustomerName : utilisateur.customers){
-			 getNameGuest = CustomerName.getName();
-		}return getNameGuest;
-	}
-	public void setName2(String getNameGuest) {
-		this.name = getNameGuest;
-	}
 	
-
-	public String getnameProduct(ShoppingCart shop) {
-		String getNameProduct = null;
-		for(Product elements : shop.listCart){
-			if(shop.listCart != null ) {
-				getNameProduct = elements.getName();
-			}
-		}return getNameProduct;
-	}
-	public void setNameProducts(String getNameProduct) {
-		this.nameProduct = getNameProduct;
-	}
-
-	public int getProductQuantity(ShoppingCart shop) {
-		int productQuantity = 0;
-		for(Product elements : shop.listCart){
-			if(shop.listCart != null ) {
-			productQuantity = elements.getQuantity();
-			}
-		}return productQuantity;
-	}
-	public void setProductQuantity(int productQuantity) {
-		this.quantity = productQuantity;
-	}
-	
-
-	public double getTotalAmount(ShoppingCart shop) {
-		double amountOrder = shop.getCartTotalAmount();
-		this.amount = amountOrder;
-		return amountOrder;
-	}
-	public void setTotalAmount(double amountOrder) {
-		this.amount = amountOrder;
-	}
-
-	/*--------------------- accesseurs ------------------------*/
 	public static int getId() {
 		idOrder = idOrder;
 		return idOrder;
@@ -127,12 +83,63 @@ public class Order {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+	
+	public void setName2(String getNameGuest) {
+		this.name = getNameGuest;
+	}
+	public void setTotalAmount(double amountOrder) {
+		this.amount = amountOrder;
+	}
+	public void setProductQuantity(int productQuantity) {
+		this.quantity = productQuantity;
+	}
+	public void setNameProducts(String getNameProduct) {
+		this.nameProduct = getNameProduct;
+	}
 	/*-----------------------------------------------*/
+
+    //recupere nom user
+	public String orderGuestName(Users utilisateur) {
+		String getNameGuest = null;
+		for(Customers CustomerName : utilisateur.customers){
+			 getNameGuest = CustomerName.getName();
+		}return getNameGuest;
+	}
+	
+	//recupere nom product dans panier client
+	public String getnameProduct(ShoppingCart shop) {
+		String getNameProduct = null;
+		for(Product elements : shop.listCart){
+			if(shop.listCart != null ) {
+				getNameProduct = elements.getName();
+			}
+		}return getNameProduct;
+	}
+	
+	//recupere nom product dans panier client
+	public int getProductQuantity(ShoppingCart shop) {
+		int productQuantity = 0;
+		for(Product elements : shop.listCart){
+			if(shop.listCart != null ) {
+			productQuantity = elements.getQuantity();
+			}
+		}return productQuantity;
+	}
+	
+	//recupere le montant total du panier
+	public double getTotalAmount(ShoppingCart shop) {
+		double amountOrder = shop.getCartTotalAmount();
+		this.amount = amountOrder;
+		return amountOrder;
+	}
+	
+	//on crée une nouvelle commande dans panel admin
 	public  void addAnOrder(int idOrder, String getNameGuest, String getNameProduct, int productQuantity, double amountOrder){
 		Order addOrder = new Order(idOrder, getNameGuest,  getNameProduct,  productQuantity,  amountOrder);
 		order.add(addOrder);
 	}
 	
+	//affichage des commandes dans l'admin
 	public void displayGuestOrder() {
 		for (Order eachItem : order) {
 			if(eachItem.getId() >= 1) {
@@ -147,6 +154,7 @@ public class Order {
 		}
 	}
 	
+	//suppression panier
 	public void clearOrder(int scanid) {
 		for(Order elements : order) {
 			if(elements.getId() == scanid) {

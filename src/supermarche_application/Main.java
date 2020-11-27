@@ -9,8 +9,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+			//run console application
 			Input.displayMainMenu();
+			
+			//Jframe
 			//Window window = new Window();
-		   // window.setVisible(true);
+		    //window.setVisible(true);
 	}
 }

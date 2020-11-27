@@ -64,7 +64,7 @@ public class Input {
 					String UserPassLog = scanUser.next();
 					
 					users.createAccount(UserNameLog, UserPassLog);
-					displayAdminMenu();
+					displayCustomerMenu();
 	
 				}else if(choiceUser == 4) {
 					System.out.println("thank you, bye");
@@ -217,7 +217,6 @@ public class Input {
 			
 		if(BuyOrReturn.equals("b")) {
 			// on genere un id pour la commande
-			int orderIdent = 1;
 			
 			System.out.println("Thank you for buying, you will receive a email soon ");
 
@@ -225,13 +224,15 @@ public class Input {
 			String productName = Allorders.getnameProduct(listShoppinCart);
 			int orderQuantity = Allorders.getProductQuantity(listShoppinCart);
 			double amountOrder =  Allorders.getTotalAmount(listShoppinCart);
+			int idOrder=1;
 			
-			Allorders.addAnOrder(orderIdent, GuestName, productName, orderQuantity,amountOrder );
+			Allorders.addAnOrder(idOrder, GuestName, productName, orderQuantity,amountOrder );
+		
 			
 			//methode qui reset le panier
 			listShoppinCart.clearShippingCart();
 			
-			orderIdent++;
+			idOrder++;
 			displayCustomerMenu();	
 			break;
 
