@@ -57,7 +57,7 @@ public class Users {
 	
 	//creation compte
 	public static void createAccount(String scanName, String scanPassword) {
-		 System.out.println("Account created, please login again\n");
+		 System.out.println("Account createdn");
 		customers.add(new Customers(scanName, scanPassword));
 	}
 

@@ -34,7 +34,7 @@ public class ShoppingCart {
 		return totalAmount;
 	}
 
-	//affichage panier
+	//display cart
 	public void displayCart() {
 		int count = 0;
 		System.out.println(" ________________________");
@@ -52,13 +52,13 @@ public class ShoppingCart {
 		System.out.println("| Total Amount :" + getCartTotalAmount()+" | " + "Total items : " + count + "\n");
 	}
 	
-	//création d'un nouveau contenu panier
+	//create a new shopping cart content
 	public static void addToCart(int id, String name, double price, int quantity){
 		Product addProduct = new Product(id, name, price, quantity);
 		listCart.add(addProduct);
 	}
 	
-	//suppression du panier
+	//remove shopping cart
 	public void clearShippingCart() {
 			listCart.removeAll(listCart);
 	}

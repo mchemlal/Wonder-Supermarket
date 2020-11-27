@@ -8,7 +8,8 @@ import users.Customers;
 import users.Users;
 
 public class Order {
-	public static int idOrder = 0;
+	public static int idNextOrder = 1;
+	public static int idOrder;
 	public static ArrayList<Order> order;
 	private String name;
 	private String nameProduct;
@@ -17,7 +18,7 @@ public class Order {
 	
 	//constructeur objet  d'un item de la commande client
 	public Order(int idOrder, String name, String nameProduct, int quantity, double amount) {
-		
+		this.idOrder = idOrder;
 		this.name = name;
 		this.nameProduct = nameProduct;
 		this.quantity = quantity;
@@ -28,7 +29,7 @@ public class Order {
 	public Order() {
 		order = new ArrayList<>();
 		//this.setId(idOrder);
-		this.idOrder = idOrder;
+		
 		this.setName2(name);
 		this.setNameProducts(nameProduct);
 		this.setProductQuantity(quantity) ;
@@ -47,7 +48,7 @@ public class Order {
 	}
 	
 	public static int getId() {
-		idOrder = idOrder;
+			idOrder = idOrder;
 		return idOrder;
 	}
 	public void setId(int idOrder) {
@@ -158,12 +159,20 @@ public class Order {
 	//suppression panier
 	public void clearOrder(int scanid) {
 		for(Order elements : order) {
-			if(elements.getId() == scanid) {
-			order.remove(scanid - 1);
+			if(elements.idOrder == scanid) {
+			order.remove(elements);
 			System.out.println("\nOrder deleted correctly\n");
-			
 			Input.displayAdminMenu();
+			System.out.println("\nWhat do you want to do?\n"
+					+ "p - process the order\n"
+					+ "m - back to main menu\n");
+			}else {
+				System.out.println("\nWrong command\n");
+				Input.displayAdminMenu();
+				
 			}
+			
+			
 		}
 	}
 	

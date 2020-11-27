@@ -17,7 +17,6 @@ public class Input {
 	public static Order Allorders = new Order();
 	public static Scanner scanUser = new Scanner(System.in);
 	 
-	
 	 public static void displayMainMenu() {
 			
 			boolean isInProgress = false;
@@ -68,7 +67,7 @@ public class Input {
 					
 					//create account 
 					users.createAccount(UserNameLog, UserPassLog);
-					displayMainMenu();
+					displayCustomerMenu();
 					//displayCustomerMenu();
 	
 				}else if(choiceUser == 4) {
@@ -89,9 +88,6 @@ public class Input {
 
 	}
 
-
-
- 
 	public static void displayAdminMenu(){
     boolean isInProgressAdminMenu = false;
 	while(!isInProgressAdminMenu) {
@@ -101,8 +97,7 @@ public class Input {
 				+ "2 - add a product\n"
 				+ "3 - Orders checking\n"
 				+ "4 - logout\n");
-		
-		
+			
 		int choiceAdmin = scanUser.nextInt();
 		
 		
@@ -177,7 +172,6 @@ public class Input {
 			listStock.displayProducts();
 			
 			addInputToCart();
-			//listShoppinCart.displayCart();
 			
 		}else if (choiceCustomer == 3) {
 			System.out.println("Back to the main menu");
@@ -187,8 +181,6 @@ public class Input {
 		}
 		}catch(InputMismatchException e) {
 			System.out.println("Wrong key, please try again");
-		}finally {
-			scanUser.nextLine();
 		}
 		}
 	}
@@ -198,7 +190,6 @@ public class Input {
 		int chooseId = 0;
 		int chooseQuantity = 0;
 		boolean isBuying = false;
-		int idOrder = Allorders.getId();
 		while(!isBuying) {
 		System.out.println("Add to your cart your chosen products by tipping in the matching Id ");
 		chooseId = scanUser.nextInt();
@@ -228,7 +219,6 @@ public class Input {
 			String BuyOrReturn = scan.nextLine();
 			
 		if(BuyOrReturn.equals("b")) {
-			// on genere un id pour la commande
 			
 			System.out.println("Thank you for buying, you will receive a email soon ");
 
@@ -237,14 +227,10 @@ public class Input {
 			int orderQuantity = Allorders.getProductQuantity(listShoppinCart);
 			double amountOrder =  Allorders.getTotalAmount(listShoppinCart);
 			
-			
-			
 			//after buying confirmed, create admin order
-			Allorders.addAnOrder(idOrder, GuestName, productName, orderQuantity,amountOrder );
-			idOrder++;
-			Allorders.setId(idOrder);
+			Allorders.addAnOrder(Order.idNextOrder, GuestName, productName, orderQuantity,amountOrder );
+			Order.idNextOrder++;
 			
-			System.out.println(idOrder);
 			
 			//remove the cart items
 			listShoppinCart.clearShippingCart();
