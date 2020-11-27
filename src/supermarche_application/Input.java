@@ -17,6 +17,7 @@ public class Input {
 	public static Order Allorders = new Order();
 	public static Scanner scanUser = new Scanner(System.in);
 	 
+	
 	 public static void displayMainMenu() {
 			
 			boolean isInProgress = false;
@@ -33,7 +34,6 @@ public class Input {
 			
 			while(!isInProgress) {
 				try {
-				
 					
 				int choiceUser = scanUser.nextInt();
 					
@@ -44,6 +44,7 @@ public class Input {
 					System.out.println("Enter your password");
 					String UserPassLog = scanUser.next();
 					
+					//customer details checking and redirecting
 					users.getUserData(UserNameLog, UserPassLog);
 					break;
 					}
@@ -53,6 +54,8 @@ public class Input {
 					
 					System.out.println("Enter your password");
 					String UserPassLog = scanUser.next();
+					
+					//admin details checking and redirecting
 					users.getUserDataAdmin(UserNameLog, UserPassLog);
 					break;
 					
@@ -63,8 +66,10 @@ public class Input {
 					System.out.println("Enter your password");
 					String UserPassLog = scanUser.next();
 					
+					//create account 
 					users.createAccount(UserNameLog, UserPassLog);
-					displayCustomerMenu();
+					displayMainMenu();
+					//displayCustomerMenu();
 	
 				}else if(choiceUser == 4) {
 					System.out.println("thank you, bye");
@@ -102,35 +107,37 @@ public class Input {
 		
 		
 		if(choiceAdmin == 1) {
+				//shopping cart infos
 				listStock.displayProducts();
 		}else if (choiceAdmin == 2) {
+				//display products 
 				addProductDatas();
 		}else if (choiceAdmin == 3) {
-			
+			//display all orders
 			Allorders.displayGuestOrder();
 			
 			System.out.println("\nWhat do you want to do?\n"
 								+ "p - process the order\n"
 								+ "m - back to main menu\n");
-			
+				
 				String AdminChoiceOrder = scanUser.next();
-			
+					
 					if(AdminChoiceOrder.equals("p")) {
+						
 						
 						if(Allorders.getOrder().isEmpty()) {
 							System.out.println("\nYour order list is empty\n");
 						}else {
-						
 							System.out.println("\nType the id to process the order");
 							int idProcessOrder = scanUser.nextInt();
-						
+							
+							//clear th selected order
 							Allorders.clearOrder(idProcessOrder);
 						}
-						
+					
 					}else if(AdminChoiceOrder.equals("m")) {
 						displayAdminMenu();
 					}
-				
 			}
 			else if (choiceAdmin == 4) {
 				System.out.println("Back to the main menu");
@@ -138,7 +145,6 @@ public class Input {
 				break;
 			}else {
 				System.out.println("please enter a number between 1 to 4");
-				
 			}
 		}catch(InputMismatchException e) {
 			System.out.println("wrong key, please try again");
@@ -158,15 +164,18 @@ public class Input {
 				+ "2 - add to cart\n"
 				+ "3 - logout\n");
 		
+		//display and update the shopping cart informations
 		listShoppinCart.displayCart();
 		int choiceCustomer = scanUser.nextInt();
 		
 		if(choiceCustomer == 1) {
+			//display products stock list
 			listStock.displayProducts();
 			
 		}else if (choiceCustomer == 2) {
 			
 			listStock.displayProducts();
+			
 			addInputToCart();
 			//listShoppinCart.displayCart();
 			
@@ -189,6 +198,7 @@ public class Input {
 		int chooseId = 0;
 		int chooseQuantity = 0;
 		boolean isBuying = false;
+		int idOrder = Allorders.getId();
 		while(!isBuying) {
 		System.out.println("Add to your cart your chosen products by tipping in the matching Id ");
 		chooseId = scanUser.nextInt();
@@ -203,11 +213,13 @@ public class Input {
 			scanUser.nextLine();
 		}
 		
-			
+		//check scanner and stock(id and quantity) matches
 		listStock.choseProductById(chooseId, chooseQuantity);
+		
 		listShoppinCart.displayCart();
 		
 			if(listShoppinCart.getCartTotalAmount() == 0) {
+				
 				listStock.displayProducts();
 			}else {
 			System.out.println("What do you want to do?\n b - Buy your shopping cart \n r - return");
@@ -224,15 +236,20 @@ public class Input {
 			String productName = Allorders.getnameProduct(listShoppinCart);
 			int orderQuantity = Allorders.getProductQuantity(listShoppinCart);
 			double amountOrder =  Allorders.getTotalAmount(listShoppinCart);
-			int idOrder=1;
 			
+			
+			
+			//after buying confirmed, create admin order
 			Allorders.addAnOrder(idOrder, GuestName, productName, orderQuantity,amountOrder );
-		
+			idOrder++;
+			Allorders.setId(idOrder);
 			
-			//methode qui reset le panier
+			System.out.println(idOrder);
+			
+			//remove the cart items
 			listShoppinCart.clearShippingCart();
 			
-			idOrder++;
+			
 			displayCustomerMenu();	
 			break;
 
@@ -284,11 +301,12 @@ public class Input {
 			scanUser.nextLine();
 		}
 
+		//display product stock
 		listStock.addProduct(addId, addNameProduct, addPriceProduct, addQuantityProduct);
 		addId++;
 		isInProgressAdminDatas = true;
 		}
-		System.out.println("Product addes successfully!\n ");
+		System.out.println("Product added successfully!\n ");
 		displayAdminMenu();
 
 	}

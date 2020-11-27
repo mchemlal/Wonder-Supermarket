@@ -8,7 +8,7 @@ import users.Customers;
 import users.Users;
 
 public class Order {
-	public static int idOrder;
+	public static int idOrder = 0;
 	public static ArrayList<Order> order;
 	private String name;
 	private String nameProduct;
@@ -17,7 +17,7 @@ public class Order {
 	
 	//constructeur objet  d'un item de la commande client
 	public Order(int idOrder, String name, String nameProduct, int quantity, double amount) {
-		this.idOrder = idOrder;
+		
 		this.name = name;
 		this.nameProduct = nameProduct;
 		this.quantity = quantity;
@@ -28,6 +28,7 @@ public class Order {
 	public Order() {
 		order = new ArrayList<>();
 		//this.setId(idOrder);
+		this.idOrder = idOrder;
 		this.setName2(name);
 		this.setNameProducts(nameProduct);
 		this.setProductQuantity(quantity) ;

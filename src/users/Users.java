@@ -10,7 +10,6 @@ import supermarche_application.Input;
 
 public class Users {
 
-	
 	public static ArrayList<Customers> customers;
 	public static ArrayList<Admin> admin;
 	
@@ -58,7 +57,7 @@ public class Users {
 	
 	//creation compte
 	public static void createAccount(String scanName, String scanPassword) {
-		 System.out.println("Account created\n");
+		 System.out.println("Account created, please login again\n");
 		customers.add(new Customers(scanName, scanPassword));
 	}
 
